@@ -1410,25 +1410,38 @@
 
                 <div class="card col-span-full">
                     <div class="card-title">Tier Performance</div>
-                    ${[
-                        { name: '0DTE Tier A (±5+)', data: tierA },
-                        { name: '0DTE Tier B (±3-4)', data: tierB },
-                        { name: 'Swing Tier A (±4+)', data: swingA },
-                        { name: 'Swing Tier B (±3)', data: swingB }
-                    ].map(t => {
-                        const pnl = t.data.total_pnl || 0;
-                        const pnlColor = pnl >= 0 ? '#00e396' : '#ff4560';
-                        const pnlSign = pnl >= 0 ? '+' : '';
-                        return \`
                     <div class="tier-item">
-                        <span class="tier-name">\${t.name}</span>
+                        <span class="tier-name">0DTE Tier A (±5+)</span>
                         <div class="tier-stats">
-                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">\${t.data.wins || 0}</span></div>
-                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">\${t.data.losses || 0}</span></div>
-                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: \${pnlColor};">\${pnlSign}\${formatNumber(pnl)}</span></div>
+                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">${tierA.wins || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">${tierA.losses || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: ${(tierA.total_pnl||0) >= 0 ? '#00e396' : '#ff4560'};">${(tierA.total_pnl||0) >= 0 ? '+' : ''}${formatNumber(tierA.total_pnl || 0)}</span></div>
                         </div>
-                    </div>\`;
-                    }).join('')}
+                    </div>
+                    <div class="tier-item">
+                        <span class="tier-name">0DTE Tier B (±3-4)</span>
+                        <div class="tier-stats">
+                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">${tierB.wins || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">${tierB.losses || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: ${(tierB.total_pnl||0) >= 0 ? '#00e396' : '#ff4560'};">${(tierB.total_pnl||0) >= 0 ? '+' : ''}${formatNumber(tierB.total_pnl || 0)}</span></div>
+                        </div>
+                    </div>
+                    <div class="tier-item">
+                        <span class="tier-name">Swing Tier A (±4+)</span>
+                        <div class="tier-stats">
+                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">${swingA.wins || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">${swingA.losses || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: ${(swingA.total_pnl||0) >= 0 ? '#00e396' : '#ff4560'};">${(swingA.total_pnl||0) >= 0 ? '+' : ''}${formatNumber(swingA.total_pnl || 0)}</span></div>
+                        </div>
+                    </div>
+                    <div class="tier-item">
+                        <span class="tier-name">Swing Tier B (±3)</span>
+                        <div class="tier-stats">
+                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">${swingB.wins || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">${swingB.losses || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: ${(swingB.total_pnl||0) >= 0 ? '#00e396' : '#ff4560'};">${(swingB.total_pnl||0) >= 0 ? '+' : ''}${formatNumber(swingB.total_pnl || 0)}</span></div>
+                        </div>
+                    </div>
                 </div>
             `;
 
