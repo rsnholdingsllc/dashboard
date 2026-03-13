@@ -1365,8 +1365,12 @@
 
         function renderPerformanceTab() {
             const stats = D.performance?.stats || {};
-            const tierA = stats.tier_a_0dte || { wins: 0, losses: 0, total_pnl: 0 };
-            const tierB = stats.tier_b_0dte || { wins: 0, losses: 0, total_pnl: 0 };
+            const tierA = stats.dte_tier_a || stats.tier_a_0dte || { wins: 0, losses: 0, total_pnl: 0 };
+            const tierB = stats.dte_tier_b || stats.tier_b_0dte || { wins: 0, losses: 0, total_pnl: 0 };
+            const swingA = stats.swing_tier_a || { wins: 0, losses: 0, total_pnl: 0 };
+            const swingB = stats.swing_tier_b || { wins: 0, losses: 0, total_pnl: 0 };
+            const totalWins = tierA.wins + tierB.wins + swingA.wins + swingB.wins;
+            const totalLosses = tierA.losses + tierB.losses + swingA.losses + swingB.losses;
 
             const html = `
                 <div class="grid-3col" style="margin-bottom: 24px;">
@@ -1380,7 +1384,7 @@
                     <div class="card text-center">
                         <div class="card-title">Win Rate</div>
                         <div style="font-family: JetBrains Mono; font-size: 32px; font-weight: 700; color: #00e5ff; margin: 12px 0;">
-                            ${((tierA.wins + tierB.wins) / Math.max(1, tierA.wins + tierA.losses + tierB.wins + tierB.losses) * 100).toFixed(0)}%
+                            ${(totalWins / Math.max(1, totalWins + totalLosses) * 100).toFixed(0)}%
                         </div>
                         <div style="font-size: 12px; color: #8899bb;">All Trades</div>
                     </div>
@@ -1406,40 +1410,25 @@
 
                 <div class="card col-span-full">
                     <div class="card-title">Tier Performance</div>
+                    ${[
+                        { name: '0DTE Tier A (±5+)', data: tierA },
+                        { name: '0DTE Tier B (±3-4)', data: tierB },
+                        { name: 'Swing Tier A (±4+)', data: swingA },
+                        { name: 'Swing Tier B (±3)', data: swingB }
+                    ].map(t => {
+                        const pnl = t.data.total_pnl || 0;
+                        const pnlColor = pnl >= 0 ? '#00e396' : '#ff4560';
+                        const pnlSign = pnl >= 0 ? '+' : '';
+                        return \`
                     <div class="tier-item">
-                        <span class="tier-name">0DTE Tier A (±5+)</span>
+                        <span class="tier-name">\${t.name}</span>
                         <div class="tier-stats">
-                            <div class="tier-stat">
-                                <span class="tier-label">W:</span>
-                                <span class="tier-value">${tierA.wins || 0}</span>
-                            </div>
-                            <div class="tier-stat">
-                                <span class="tier-label">L:</span>
-                                <span class="tier-value">${tierA.losses || 0}</span>
-                            </div>
-                            <div class="tier-stat">
-                                <span class="tier-label">P&L:</span>
-                                <span class="tier-value" style="color: #00e396;">+${formatNumber(tierA.total_pnl || 0)}</span>
-                            </div>
+                            <div class="tier-stat"><span class="tier-label">W:</span><span class="tier-value">\${t.data.wins || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">L:</span><span class="tier-value">\${t.data.losses || 0}</span></div>
+                            <div class="tier-stat"><span class="tier-label">P&L:</span><span class="tier-value" style="color: \${pnlColor};">\${pnlSign}\${formatNumber(pnl)}</span></div>
                         </div>
-                    </div>
-                    <div class="tier-item">
-                        <span class="tier-name">0DTE Tier B (±3-4)</span>
-                        <div class="tier-stats">
-                            <div class="tier-stat">
-                                <span class="tier-label">W:</span>
-                                <span class="tier-value">${tierB.wins || 0}</span>
-                            </div>
-                            <div class="tier-stat">
-                                <span class="tier-label">L:</span>
-                                <span class="tier-value">${tierB.losses || 0}</span>
-                            </div>
-                            <div class="tier-stat">
-                                <span class="tier-label">P&L:</span>
-                                <span class="tier-value" style="color: #ff4560;">-${formatNumber(Math.abs(tierB.total_pnl || 0))}</span>
-                            </div>
-                        </div>
-                    </div>
+                    </div>\`;
+                    }).join('')}
                 </div>
             `;
 
@@ -1454,13 +1443,23 @@
         function renderPnLDistChart() {
             if (chartInstances.pnlDistChart) chartInstances.pnlDistChart.destroy();
 
+            const stats = D.performance?.stats || {};
+            const allTiers = [
+                stats.dte_tier_a || stats.tier_a_0dte || {},
+                stats.dte_tier_b || stats.tier_b_0dte || {},
+                stats.swing_tier_a || {},
+                stats.swing_tier_b || {}
+            ];
+            const totalW = allTiers.reduce((s, t) => s + (t.wins || 0), 0);
+            const totalL = allTiers.reduce((s, t) => s + (t.losses || 0), 0);
+
             const ctx = document.getElementById('pnlDistChart').getContext('2d');
             chartInstances.pnlDistChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Wins', 'Losses'],
                     datasets: [{
-                        data: [65, 35],
+                        data: [totalW || 0, totalL || 0],
                         backgroundColor: ['#00e396', '#ff4560']
                     }]
                 },
