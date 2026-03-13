@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAYMON | Trading Terminal</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0" integrity="sha384-cVMg8E3QFwTvGCDuK+ET4PD341jF3W8nO1auiXfuZNQkzbUUiBGLsIQUE+b1mxws" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg-base: #0a0e17;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2235;
+            --bg-elevated: #1e293b;
+            --border: #1e293b;
+            --border-accent: #2563eb33;
+
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-accent: #60a5fa;
+
+            --blue: #3b82f6;
+            --blue-glow: #3b82f633;
+            --cyan: #22d3ee;
+            --green: #10b981;
+            --green-bg: #10b98115;
+            --red: #ef4444;
+            --red-bg: #ef444415;
+            --amber: #f59e0b;
+            --amber-bg: #f59e0b15;
+            --purple: #a78bfa;
+
+            --gap: 12px;
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* ═══════ HEADER ═══════ */
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .phase-badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--blue-glow);
+            color: var(--blue);
+            border: 1px solid var(--blue);
+        }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-stat {
+            text-align: right;
+        }
+        .header-stat .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .header-stat .value { font-size: 15px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .updated {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pulse {
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ═══════ LAYOUT ═══════ */
+        .dashboard { max-width: 1440px; margin: 0 auto; padding: var(--gap); }
+
+        /* ═══════ TARGET PROGRESS ═══════ */
+        .target-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a3e 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: var(--gap);
+        }
+        .target-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .target-header h2 { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .target-amount { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .target-bar-container { position: relative; height: 28px; background: var(--bg-base); border-radius: 14px; overflow: hidden; }
+        .target-bar {
+            height: 100%;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #a78bfa);
+            transition: width 1s ease;
+            position: relative;
+        }
+        .target-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .target-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .milestone.active { color: var(--blue); font-weight: 600; }
+        .milestone.completed { color: var(--green); }
+
+        /* ═══════ KPI ROW ═══════ */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--gap);
+            margin-bottom: var(--gap);
+        }
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            transition: all 0.2s;
+        }
+        .kpi-card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); }
+        .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; font-weight: 500; }
+        .kpi-value { font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .kpi-sub { font-size: 11px; margin-top: 4px; font-weight: 500; }
+        .kpi-card.alert { border-left: 3px solid var(--red); }
+        .kpi-card.warn { border-left: 3px solid var(--amber); }
+        .kpi-card.good { border-left: 3px solid var(--green); }
+
+        /* ═══════ GRID SECTIONS ═══════ */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+        .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+        .grid-positions { display: grid; grid-template-columns: 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            overflow: hidden;
+        }
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title .icon { font-size: 14px; }
+
+        /* ═══════ POSITIONS TABLE ═══════ */
+        .positions-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .positions-table thead th {
+            text-align: left;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .positions-table thead th:hover { color: var(--text-secondary); }
+        .positions-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #1e293b20;
+            vertical-align: middle;
+        }
+        .positions-table tbody tr { transition: background 0.15s; }
+        .positions-table tbody tr:hover { background: var(--bg-elevated); }
+
+        .ticker-cell { display: flex; align-items: center; gap: 10px; }
+        .ticker-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 13px;
+            min-width: 52px;
+        }
+        .ticker-desc { font-size: 11px; color: var(--text-muted); }
+        .sector-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* SL/TP Progress Bar */
+        .sl-tp-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-base);
+            border-radius: 3px;
+            position: relative;
+            margin-top: 4px;
+        }
+        .sl-tp-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s;
+        }
+        .sl-tp-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ═══════ CHARTS ═══════ */
+        .chart-wrap { position: relative; height: 260px; }
+        .chart-wrap canvas { max-height: 260px; }
+
+        /* ═══════ BUDGET GAUGES ═══════ */
+        .gauge-row { display: flex; gap: 20px; }
+        .gauge { flex: 1; }
+        .gauge-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .gauge-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .gauge-value { font-size: 13px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .gauge-bar { height: 8px; background: var(--bg-base); border-radius: 4px; overflow: hidden; }
+        .gauge-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+
+        /* ═══════ TRADE LOG ═══════ */
+        .trade-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #1e293b30;
+            gap: 12px;
+            font-size: 13px;
+        }
+        .trade-row:last-child { border-bottom: none; }
+        .trade-date { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; min-width: 70px; }
+        .trade-ticker { font-weight: 600; min-width: 45px; font-family: 'JetBrains Mono', monospace; }
+        .trade-type { font-size: 11px; color: var(--text-muted); flex: 1; }
+        .trade-pnl { font-weight: 600; font-family: 'JetBrains Mono', monospace; min-width: 70px; text-align: right; }
+        .trade-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+
+        /* ═══════ WATCHLIST ═══════ */
+        .watch-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #1e293b30;
+            gap: 10px;
+            font-size: 13px;
+        }
+        .watch-item:last-child { border-bottom: none; }
+        .watch-dir {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        .watch-score { font-weight: 700; font-family: 'JetBrains Mono', monospace; min-width: 40px; }
+        .watch-trigger { font-size: 11px; color: var(--text-muted); flex: 1; }
+        .watch-source { font-size: 9px; color: var(--text-accent); font-weight: 600; letter-spacing: 0.5px; }
+
+        /* ═══════ CATALYSTS ═══════ */
+        .catalyst-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #1e293b30;
+            gap: 12px;
+            font-size: 13px;
+        }
+        .catalyst-item:last-child { border-bottom: none; }
+        .catalyst-date { font-size: 11px; color: var(--text-accent); font-family: 'JetBrains Mono', monospace; min-width: 58px; }
+        .catalyst-tickers { font-weight: 600; font-family: 'JetBrains Mono', monospace; min-width: 50px; }
+        .catalyst-event { font-size: 12px; color: var(--text-secondary); flex: 1; }
+        .catalyst-impact {
+            font-size: 9px; font-weight: 700; padding: 2px 8px;
+            border-radius: 4px; letter-spacing: 0.5px;
+        }
+
+        /* ═══════ WIN RATE ═══════ */
+        .winrate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .winrate-box { text-align: center; padding: 12px; background: var(--bg-base); border-radius: var(--radius-sm); }
+        .winrate-box .wr-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .winrate-box .wr-value { font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .winrate-box .wr-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* ═══════ UTILITY ═══════ */
+        .text-green { color: var(--green); }
+        .text-red { color: var(--red); }
+        .text-amber { color: var(--amber); }
+        .text-blue { color: var(--blue); }
+        .text-purple { color: var(--purple); }
+        .text-cyan { color: var(--cyan); }
+        .text-muted { color: var(--text-muted); }
+        .bg-green { background: var(--green-bg); color: var(--green); }
+        .bg-red { background: var(--red-bg); color: var(--red); }
+        .bg-amber { background: var(--amber-bg); color: var(--amber); }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width: 1200px) {
+            .kpi-row { grid-template-columns: repeat(3, 1fr); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; gap: 12px; }
+            .header-right { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="header">
+    <div class="header-left">
+        <div class="logo">RAYMON TERMINAL</div>
+        <div class="phase-badge" id="phase-badge">PHASE 1 — PROVE</div>
+    </div>
+    <div class="header-right">
+        <div class="header-stat">
+            <div class="label">SPY</div>
+            <div class="value" id="h-spy">$668.71</div>
+        </div>
+        <div class="header-stat">
+            <div class="label">VIX</div>
+            <div class="value" id="h-vix" style="color: var(--amber)">24.23</div>
+        </div>
+        <div class="header-stat">
+            <div class="label">P/C Ratio</div>
+            <div class="value" id="h-pc">0.86</div>
+        </div>
+        <div class="header-stat">
+            <div class="label">Trend</div>
+            <div class="value text-red" id="h-trend">BEARISH</div>
+        </div>
+        <div class="updated">
+            <div class="pulse"></div>
+            <span id="last-updated">—</span>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard">
+
+    <!-- ═══════ $100K TARGET ═══════ -->
+    <div class="target-section">
+        <div class="target-header">
+            <h2>Growth Target</h2>
+            <div class="target-amount" id="target-equity">$15,074</div>
+        </div>
+        <div class="target-bar-container">
+            <div class="target-bar" id="target-bar" style="width: 15%"></div>
+        </div>
+        <div class="target-milestones">
+            <span class="milestone active" id="m-current">$15.1K</span>
+            <span class="milestone" id="m-p2">Phase 2 — $25K</span>
+            <span class="milestone" id="m-p3">Phase 3 — $50K</span>
+            <span class="milestone" id="m-target">$100K</span>
+        </div>
+    </div>
+
+    <!-- ═══════ KPI ROW ═══════ -->
+    <div class="kpi-row">
+        <div class="kpi-card good" id="kpi-equity">
+            <div class="kpi-label">Equity</div>
+            <div class="kpi-value" id="kv-equity">$15,074</div>
+            <div class="kpi-sub text-green" id="ks-equity">Phase 1</div>
+        </div>
+        <div class="kpi-card" id="kpi-weekpnl">
+            <div class="kpi-label">Week P&L</div>
+            <div class="kpi-value" id="kv-weekpnl">+$139</div>
+            <div class="kpi-sub" id="ks-weekpnl">Kill switch: -$900</div>
+        </div>
+        <div class="kpi-card" id="kpi-heat">
+            <div class="kpi-label">Portfolio Heat</div>
+            <div class="kpi-value" id="kv-heat">50%</div>
+            <div class="kpi-sub" id="ks-heat">Limit: 35%</div>
+        </div>
+        <div class="kpi-card" id="kpi-delta">
+            <div class="kpi-label">Net Delta</div>
+            <div class="kpi-value" id="kv-delta">+134</div>
+            <div class="kpi-sub" id="ks-delta">LONG bias</div>
+        </div>
+        <div class="kpi-card" id="kpi-streak">
+            <div class="kpi-label">Streak</div>
+            <div class="kpi-value" id="kv-streak">2W</div>
+            <div class="kpi-sub text-muted" id="ks-streak">0 losses</div>
+        </div>
+        <div class="kpi-card" id="kpi-vix">
+            <div class="kpi-label">VIX Tier</div>
+            <div class="kpi-value" id="kv-vix">ELEVATED</div>
+            <div class="kpi-sub" id="ks-vix">18-25 range</div>
+        </div>
+    </div>
+
+    <!-- ═══════ POSITIONS ═══════ -->
+    <div class="grid-positions">
+        <div class="card">
+            <div class="card-title"><span class="icon">📊</span> Open Positions</div>
+            <table class="positions-table">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Sector</th>
+                        <th>Entry</th>
+                        <th>Current</th>
+                        <th>P&L</th>
+                        <th>P&L %</th>
+                        <th>SL / TP Progress</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="positions-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ CHARTS ROW ═══════ -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title"><span class="icon">📈</span> Equity Curve — Road to $100K</div>
+            <div class="chart-wrap"><canvas id="equity-chart"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="icon">💰</span> Weekly P&L</div>
+            <div class="chart-wrap"><canvas id="weekly-pnl-chart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ═══════ BUDGETS + WIN RATES ═══════ -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title"><span class="icon">⚡</span> Budget Trackers</div>
+            <div class="gauge-row" style="margin-bottom: 20px;">
+                <div class="gauge">
+                    <div class="gauge-header">
+                        <span class="gauge-label">0DTE Weekly</span>
+                        <span class="gauge-value" id="g-dte-val">$412 / $600</span>
+                    </div>
+                    <div class="gauge-bar"><div class="gauge-fill" id="g-dte-fill" style="width:69%;background:var(--amber)"></div></div>
+                </div>
+                <div class="gauge">
+                    <div class="gauge-header">
+                        <span class="gauge-label">Swings Deployed</span>
+                        <span class="gauge-value" id="g-swing-val">4 / 4 slots</span>
+                    </div>
+                    <div class="gauge-bar"><div class="gauge-fill" id="g-swing-fill" style="width:100%;background:var(--red)"></div></div>
+                </div>
+            </div>
+            <div class="gauge-row">
+                <div class="gauge">
+                    <div class="gauge-header">
+                        <span class="gauge-label">Margin Buffer</span>
+                        <span class="gauge-value text-green" id="g-margin-val">61.8%</span>
+                    </div>
+                    <div class="gauge-bar"><div class="gauge-fill" id="g-margin-fill" style="width:62%;background:var(--green)"></div></div>
+                </div>
+                <div class="gauge">
+                    <div class="gauge-header">
+                        <span class="gauge-label">Weekly Kill Switch</span>
+                        <span class="gauge-value" id="g-kill-val">+$139 / -$900</span>
+                    </div>
+                    <div class="gauge-bar"><div class="gauge-fill" id="g-kill-fill" style="width:15%;background:var(--green)"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="icon">🎯</span> Win Rates by Tier</div>
+            <div class="winrate-grid" id="winrate-grid"></div>
+        </div>
+    </div>
+
+    <!-- ═══════ TRADE LOG + WATCHLIST ═══════ -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title"><span class="icon">📋</span> Recent Trades</div>
+            <div id="trade-log"></div>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="icon">👁</span> Swing Watchlist</div>
+            <div id="watchlist"></div>
+        </div>
+    </div>
+
+    <!-- ═══════ CATALYSTS ═══════ -->
+    <div class="card" style="margin-bottom:var(--gap)">
+        <div class="card-title"><span class="icon">📅</span> Upcoming Catalysts</div>
+        <div id="catalysts"></div>
+    </div>
+
+</div>
+
+<script>
+// ═══════ DATA LAYER ═══════
+// This is replaced by generate_dashboard() in uw_toolkit.py
+const D = {"meta": {"last_updated": "2026-03-13T22:15:43.992780+00:00", "updated_by": "uw_toolkit", "version": 1}, "account": {"equity": 15074, "buying_power": 33177, "margin_debt": 1863, "margin_buffer_pct": 61.76, "daily_interest": 0.25, "target": 100000, "phase": 1, "phase_name": "PROVE", "phase_next": 25000}, "positions": [{"ticker": "HOOD", "type": "equity", "description": "178 shares", "entry": 103.5, "current": 75.98, "qty": 178, "pnl_dollar": -4899, "pnl_pct": -26.6, "sl": null, "tp1": null, "tp2": null, "notes": "Owner override. Apr 29 earnings catalyst.", "opened": "2026-02-15", "sector": "Financials"}, {"ticker": "NVDA", "type": "spread", "description": "$180/$230C Jan27 LEAPS", "entry": 17.45, "current": 18.81, "qty": 1, "pnl_dollar": 136, "pnl_pct": 7.8, "sl": 8.73, "tp1": 33.73, "tp2": 42.34, "notes": "GTC Mar 16 review. GTC Conference catalyst.", "opened": "2026-03-01", "sector": "Technology"}, {"ticker": "IGV", "type": "spread", "description": "$85/$80P 4/17", "entry": 1.6, "current": 1.65, "qty": 1, "pnl_dollar": 5, "pnl_pct": 3.1, "sl": 0.8, "tp1": 3.28, "tp2": 4.15, "notes": "4/7 review.", "opened": "2026-03-10", "sector": "Technology"}, {"ticker": "DHR", "type": "option", "description": "$200C Jun18 naked", "entry": 7.1, "current": 7.1, "qty": 1, "pnl_dollar": 0, "pnl_pct": 0, "sl": 3.55, "tp1": 10.65, "tp2": 12.43, "notes": "4/17 review. Earnings 4/21.", "opened": "2026-03-13", "sector": "Healthcare"}, {"ticker": "LEN", "type": "spread", "description": "$100/$110C 4/17", "entry": 2.37, "current": 2.37, "qty": 1, "pnl_dollar": 0, "pnl_pct": 0, "sl": 1.19, "tp1": 6.18, "tp2": 8.08, "notes": "4/7 review.", "opened": "2026-03-13", "sector": "Consumer Discretionary"}, {"ticker": "AXSM", "type": "option", "description": "$170C May15 naked", "entry": 10.0, "current": 10.0, "qty": 1, "pnl_dollar": 0, "pnl_pct": 0, "sl": 5.0, "tp1": 15.0, "tp2": 17.5, "notes": "Score +4.0 Tier A. UBS PT $251.", "opened": "2026-03-13", "sector": "Healthcare"}], "budgets": {"dte_weekly_limit": 600, "dte_weekly_used": 412, "dte_weekly_pnl": -91, "swing_limit": 1500, "swing_deployed": 2107, "swing_slots_used": 4, "swing_slots_max": 4, "kill_switch": -900, "weekly_pnl": 139}, "risk": {"heat_pct": 48, "heat_limit": 35, "heat_status": "OVER_LIMIT", "net_delta": 134, "delta_bias": "LONG", "vix": 24.1, "vix_tier": "ELEVATED", "current_streak_w": 2, "current_streak_l": 0}, "performance": {"stats": {"dte_tier_a": {"wins": 1, "losses": 0, "total_pnl": 367}, "dte_tier_b": {"wins": 1, "losses": 2, "total_pnl": -131}, "swing_tier_a": {"wins": 2, "losses": 0, "total_pnl": 276}, "swing_tier_b": {"wins": 1, "losses": 2, "total_pnl": -38}}, "equity_history": [{"date": "2026-03-03", "equity": 14200}, {"date": "2026-03-04", "equity": 14350}, {"date": "2026-03-05", "equity": 14500}, {"date": "2026-03-06", "equity": 14867}, {"date": "2026-03-07", "equity": 14750}, {"date": "2026-03-09", "equity": 14600}, {"date": "2026-03-10", "equity": 14700}, {"date": "2026-03-11", "equity": 14850}, {"date": "2026-03-12", "equity": 14950}, {"date": "2026-03-13", "equity": 15100}], "weekly_pnl_history": [{"week": "2026-W09", "pnl": -38}, {"week": "2026-W10", "pnl": 517}, {"week": "2026-W11", "pnl": 139}]}, "trades": [{"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 2.76, "exit": 4.19, "pnl": 143, "pnl_pct": 51.8, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 1.76, "exit": 3.07, "pnl": 131, "pnl_pct": 74.4, "score": -4.0, "tier": "B", "result": "WIN"}, {"date": "2026-03-12", "ticker": "SPY", "type": "0DTE naked", "entry": 1.18, "exit": 0.07, "pnl": -222, "pnl_pct": -94, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-12", "ticker": "SMH", "type": "swing spread", "entry": 1.95, "exit": 2.82, "pnl": 87, "pnl_pct": 44.6, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-09", "ticker": "HOOD", "type": "CSP", "entry": 2.57, "exit": 2.84, "pnl": -27, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "SOXX", "type": "swing spread", "entry": 3.62, "exit": 3.24, "pnl": -38, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "IWM", "type": "swing spread", "entry": 1.69, "exit": 3.58, "pnl": 189, "pnl_pct": 112, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE naked", "entry": 3.44, "exit": 7.11, "pnl": 367, "pnl_pct": 107, "score": null, "tier": "A", "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE spread", "entry": 0.89, "exit": 0.5, "pnl": -39, "pnl_pct": -44, "score": null, "tier": null, "result": "LOSS"}], "watchlist": [{"ticker": "LQDA", "direction": "BEAR", "score": -5.0, "tier": "A", "trigger": "Limit $1.50-$1.60", "source": "FLOW-SCAN", "added": "2026-03-13", "status": "pending"}, {"ticker": "PPG", "direction": "BEAR", "score": -4.0, "tier": "A", "trigger": "Verify RH bid/ask", "source": "FLOW-SCAN", "added": "2026-03-13", "status": "pending"}, {"ticker": "KKR", "direction": "BULL", "score": 3.0, "tier": "B", "trigger": "Limit $2.00-$2.10", "source": "FLOW-SCAN", "added": "2026-03-13", "status": "pending"}, {"ticker": "MOH", "direction": "BEAR", "score": -3.0, "tier": "B", "trigger": "Verify RH bid/ask", "source": "COUNTERTREND", "added": "2026-03-13", "status": "pending"}, {"ticker": "ITT", "direction": "BULL", "score": 3.5, "tier": "B", "trigger": "Verify RH bid/ask", "source": "FLOW-SCAN", "added": "2026-03-13", "status": "pending"}], "catalysts": [{"date": "2026-03-16", "event": "NVIDIA GTC Conference (Jensen keynote)", "tickers": ["NVDA"], "impact": "HIGH"}, {"date": "2026-04-02", "event": "PLTR Q1 Earnings (est.)", "tickers": ["PLTR"], "impact": "MEDIUM"}, {"date": "2026-04-21", "event": "DHR Earnings", "tickers": ["DHR"], "impact": "HIGH"}, {"date": "2026-04-29", "event": "HOOD Earnings", "tickers": ["HOOD"], "impact": "HIGH"}, {"date": "2026-05-15", "event": "NVDA Q1 FY27 Earnings (est.)", "tickers": ["NVDA"], "impact": "HIGH"}], "market": {"spy_price": 671.42, "spy_change_pct": -0.36, "vix": 24.15, "pc_ratio": 0.86, "gex_regime": "NEGATIVE", "max_pain_weekly": 680, "trend": "BEARISH"}};
+
+// ═══════ UTILITIES ═══════
+const fmt = (v, type='number') => {
+    if (type === 'currency') return (v >= 0 ? '+' : '') + '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    if (type === 'dollar') return '$' + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+    if (type === 'pct') return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+    return v.toLocaleString();
+};
+const cls = v => v >= 0 ? 'text-green' : 'text-red';
+
+// ═══════ INIT ═══════
+function init() {
+    renderHeader();
+    renderTarget();
+    renderKPIs();
+    renderPositions();
+    renderEquityChart();
+    renderWeeklyPnlChart();
+    renderBudgets();
+    renderWinRates();
+    renderTrades();
+    renderWatchlist();
+    renderCatalysts();
+}
+
+function renderHeader() {
+    const m = D.market;
+    document.getElementById('h-spy').textContent = '$' + m.spy_price.toFixed(2);
+    document.getElementById('h-vix').textContent = m.vix.toFixed(2);
+    document.getElementById('h-vix').style.color = m.vix >= 25 ? 'var(--red)' : m.vix >= 18 ? 'var(--amber)' : 'var(--green)';
+    document.getElementById('h-pc').textContent = m.pc_ratio.toFixed(2);
+    document.getElementById('h-trend').textContent = m.trend;
+    document.getElementById('h-trend').className = 'value ' + (m.trend === 'BULLISH' ? 'text-green' : m.trend === 'BEARISH' ? 'text-red' : 'text-amber');
+    document.getElementById('last-updated').textContent = new Date(D.meta.last_updated).toLocaleString();
+    document.getElementById('phase-badge').textContent = `PHASE ${D.account.phase} — ${D.account.phase_name}`;
+}
+
+function renderTarget() {
+    const eq = D.account.equity;
+    const pct = (eq / D.account.target * 100).toFixed(1);
+    document.getElementById('target-equity').textContent = '$' + eq.toLocaleString();
+    document.getElementById('target-bar').style.width = pct + '%';
+    document.getElementById('m-current').textContent = '$' + (eq/1000).toFixed(1) + 'K';
+}
+
+function renderKPIs() {
+    const a = D.account, b = D.budgets, r = D.risk;
+
+    document.getElementById('kv-equity').textContent = '$' + a.equity.toLocaleString();
+    document.getElementById('ks-equity').textContent = `Next: $${(a.phase_next/1000).toFixed(0)}K (Phase ${a.phase+1})`;
+
+    const wp = b.weekly_pnl;
+    document.getElementById('kv-weekpnl').textContent = fmt(wp, 'currency');
+    document.getElementById('kv-weekpnl').className = 'kpi-value mono ' + cls(wp);
+    document.getElementById('kpi-weekpnl').className = 'kpi-card ' + (wp < b.kill_switch ? 'alert' : wp < 0 ? 'warn' : 'good');
+
+    document.getElementById('kv-heat').textContent = r.heat_pct + '%';
+    document.getElementById('kv-heat').className = 'kpi-value mono ' + (r.heat_pct > r.heat_limit ? 'text-red' : 'text-green');
+    document.getElementById('kpi-heat').className = 'kpi-card ' + (r.heat_pct > r.heat_limit ? 'alert' : 'good');
+    document.getElementById('ks-heat').textContent = `Limit: ${r.heat_limit}%` + (r.heat_pct > r.heat_limit ? ' — BLOCKED' : '');
+
+    document.getElementById('kv-delta').textContent = (r.net_delta >= 0 ? '+' : '') + r.net_delta;
+    document.getElementById('ks-delta').textContent = r.delta_bias + ' bias';
+    document.getElementById('kv-delta').className = 'kpi-value mono ' + (r.delta_bias === 'LONG' ? 'text-green' : 'text-red');
+
+    document.getElementById('kv-streak').textContent = r.current_streak_w + 'W';
+    document.getElementById('ks-streak').textContent = r.current_streak_l + ' losses';
+    document.getElementById('kpi-streak').className = 'kpi-card ' + (r.current_streak_w > 0 ? 'good' : r.current_streak_l >= 3 ? 'alert' : '');
+
+    document.getElementById('kv-vix').textContent = r.vix_tier;
+    const vixColor = r.vix_tier === 'CRISIS' ? 'text-red' : r.vix_tier === 'HIGH' ? 'text-red' : r.vix_tier === 'ELEVATED' ? 'text-amber' : 'text-green';
+    document.getElementById('kv-vix').className = 'kpi-value ' + vixColor;
+    document.getElementById('kpi-vix').className = 'kpi-card ' + (r.vix_tier === 'HIGH' || r.vix_tier === 'CRISIS' ? 'alert' : r.vix_tier === 'ELEVATED' ? 'warn' : 'good');
+}
+
+function renderPositions() {
+    const body = document.getElementById('positions-body');
+    const sectorColors = { Technology: '#3b82f6', Financials: '#a78bfa', Healthcare: '#10b981', 'Consumer Discretionary': '#f59e0b', Energy: '#ef4444' };
+
+    body.innerHTML = D.positions.map(p => {
+        const pnlCls = p.pnl_dollar >= 0 ? 'text-green' : 'text-red';
+        const sc = sectorColors[p.sector] || '#64748b';
+
+        // SL/TP progress
+        let slTpHtml = '';
+        if (p.sl !== null && p.tp1 !== null) {
+            const range = p.tp1 - p.sl;
+            const pos = ((p.current - p.sl) / range * 100);
+            const clamped = Math.max(0, Math.min(100, pos));
+            const barColor = clamped < 20 ? 'var(--red)' : clamped > 70 ? 'var(--green)' : 'var(--amber)';
+            slTpHtml = `
+                <div class="sl-tp-bar"><div class="sl-tp-fill" style="width:${clamped}%;background:${barColor}"></div></div>
+                <div class="sl-tp-labels"><span>SL $${p.sl}</span><span>TP1 $${p.tp1}</span></div>`;
+        } else {
+            slTpHtml = '<span class="text-muted" style="font-size:11px">No SL/TP</span>';
+        }
+
+        return `<tr>
+            <td><div class="ticker-cell">
+                <span class="sector-dot" style="background:${sc}"></span>
+                <div><div class="ticker-badge">${p.ticker}</div><div class="ticker-desc">${p.description}</div></div>
+            </div></td>
+            <td style="font-size:11px;color:var(--text-muted)">${p.sector}</td>
+            <td class="mono" style="font-size:12px">$${p.entry.toFixed(2)}</td>
+            <td class="mono" style="font-size:12px">$${p.current.toFixed(2)}</td>
+            <td class="mono ${pnlCls}" style="font-size:12px;font-weight:600">${fmt(p.pnl_dollar,'currency')}</td>
+            <td class="mono ${pnlCls}" style="font-size:12px">${fmt(p.pnl_pct,'pct')}</td>
+            <td style="min-width:140px">${slTpHtml}</td>
+            <td style="font-size:11px;color:var(--text-muted);max-width:180px">${p.notes}</td>
+        </tr>`;
+    }).join('');
+}
+
+function renderEquityChart() {
+    const ctx = document.getElementById('equity-chart').getContext('2d');
+    const hist = D.performance.equity_history;
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hist.map(h => h.date),
+            datasets: [
+                {
+                    label: 'Equity',
+                    data: hist.map(h => h.equity),
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.08)',
+                    borderWidth: 2.5,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                },
+                {
+                    label: 'Phase 2 ($25K)',
+                    data: hist.map(() => 25000),
+                    borderColor: '#a78bfa44',
+                    borderWidth: 1,
+                    borderDash: [6, 4],
+                    pointRadius: 0,
+                    fill: false,
+                },
+                {
+                    label: '$100K Target',
+                    data: hist.map(() => 100000),
+                    borderColor: '#10b98133',
+                    borderWidth: 1,
+                    borderDash: [6, 4],
+                    pointRadius: 0,
+                    fill: false,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 800 },
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: {
+                    labels: { color: '#94a3b8', usePointStyle: true, pointStyle: 'circle', padding: 16, font: { size: 11 } }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleColor: '#f1f5f9',
+                    bodyColor: '#94a3b8',
+                    borderColor: '#334155',
+                    borderWidth: 1,
+                    callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.parsed.y.toLocaleString()}` }
+                }
+            },
+            scales: {
+                x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b40' } },
+                y: {
+                    ticks: { color: '#64748b', font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'K' },
+                    grid: { color: '#1e293b40' },
+                    suggestedMin: 12000,
+                }
+            }
+        }
+    });
+}
+
+function renderWeeklyPnlChart() {
+    const ctx = document.getElementById('weekly-pnl-chart').getContext('2d');
+    const hist = D.performance.weekly_pnl_history;
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: hist.map(h => h.week),
+            datasets: [{
+                label: 'Weekly P&L',
+                data: hist.map(h => h.pnl),
+                backgroundColor: hist.map(h => h.pnl >= 0 ? 'rgba(16,185,129,0.7)' : 'rgba(239,68,68,0.7)'),
+                borderColor: hist.map(h => h.pnl >= 0 ? '#10b981' : '#ef4444'),
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 600 },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b', titleColor: '#f1f5f9', bodyColor: '#94a3b8', borderColor: '#334155', borderWidth: 1,
+                    callbacks: { label: ctx => (ctx.parsed.y >= 0 ? '+' : '') + '$' + ctx.parsed.y.toLocaleString() }
+                }
+            },
+            scales: {
+                x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { display: false } },
+                y: {
+                    ticks: { color: '#64748b', font: { size: 10 }, callback: v => (v >= 0 ? '+' : '') + '$' + v },
+                    grid: { color: '#1e293b40' },
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
+}
+
+function renderBudgets() {
+    const b = D.budgets, a = D.account;
+    const dtePct = Math.min(100, (b.dte_weekly_used / b.dte_weekly_limit * 100));
+    const swingPct = Math.min(100, (b.swing_slots_used / b.swing_slots_max * 100));
+    const marginPct = Math.min(100, a.margin_buffer_pct);
+    const killUsed = b.weekly_pnl < 0 ? Math.min(100, Math.abs(b.weekly_pnl) / Math.abs(b.kill_switch) * 100) : 0;
+
+    document.getElementById('g-dte-val').textContent = `$${b.dte_weekly_used} / $${b.dte_weekly_limit}`;
+    document.getElementById('g-dte-fill').style.width = dtePct + '%';
+    document.getElementById('g-dte-fill').style.background = dtePct > 90 ? 'var(--red)' : dtePct > 70 ? 'var(--amber)' : 'var(--green)';
+
+    document.getElementById('g-swing-val').textContent = `${b.swing_slots_used} / ${b.swing_slots_max} slots`;
+    document.getElementById('g-swing-fill').style.width = swingPct + '%';
+    document.getElementById('g-swing-fill').style.background = swingPct >= 100 ? 'var(--red)' : 'var(--green)';
+
+    document.getElementById('g-margin-val').textContent = a.margin_buffer_pct.toFixed(1) + '%';
+    document.getElementById('g-margin-fill').style.width = marginPct + '%';
+
+    document.getElementById('g-kill-val').textContent = fmt(b.weekly_pnl, 'currency') + ` / ${fmt(b.kill_switch, 'currency')}`;
+    document.getElementById('g-kill-fill').style.width = (b.weekly_pnl >= 0 ? '0' : killUsed) + '%';
+    document.getElementById('g-kill-fill').style.background = killUsed > 70 ? 'var(--red)' : 'var(--amber)';
+}
+
+function renderWinRates() {
+    const s = D.performance.stats;
+    const grid = document.getElementById('winrate-grid');
+    const boxes = [
+        { label: '0DTE Tier A', ...s.dte_tier_a, target: 55 },
+        { label: '0DTE Tier B', ...s.dte_tier_b, target: 45 },
+        { label: 'Swing Tier A', ...s.swing_tier_a, target: 55 },
+        { label: 'Swing Tier B', ...s.swing_tier_b, target: 45 },
+    ];
+    grid.innerHTML = boxes.map(b => {
+        const total = b.wins + b.losses;
+        const wr = total > 0 ? (b.wins / total * 100) : 0;
+        const wrCls = wr >= b.target ? 'text-green' : total < 10 ? 'text-amber' : 'text-red';
+        return `<div class="winrate-box">
+            <div class="wr-label">${b.label}</div>
+            <div class="wr-value ${wrCls}">${wr.toFixed(0)}%</div>
+            <div class="wr-detail">${b.wins}W/${b.losses}L · ${fmt(b.total_pnl,'currency')} · target ${b.target}%</div>
+        </div>`;
+    }).join('');
+}
+
+function renderTrades() {
+    const log = document.getElementById('trade-log');
+    log.innerHTML = D.trades.slice(0, 12).map(t => {
+        const pnlCls = t.pnl >= 0 ? 'text-green' : 'text-red';
+        const badgeCls = t.result === 'WIN' ? 'bg-green' : 'bg-red';
+        const tier = t.tier ? ` T${t.tier}` : '';
+        return `<div class="trade-row">
+            <span class="trade-date">${t.date.slice(5)}</span>
+            <span class="trade-ticker">${t.ticker}</span>
+            <span class="trade-type">${t.type}${tier}</span>
+            <span class="trade-pnl ${pnlCls}">${fmt(t.pnl,'currency')}</span>
+            <span class="trade-badge ${badgeCls}">${t.result}</span>
+        </div>`;
+    }).join('');
+}
+
+function renderWatchlist() {
+    const wl = document.getElementById('watchlist');
+    wl.innerHTML = D.watchlist.map(w => {
+        const dirCls = w.direction === 'BULL' ? 'bg-green' : 'bg-red';
+        const scoreCls = Math.abs(w.score) >= 4 ? 'text-cyan' : 'text-blue';
+        return `<div class="watch-item">
+            <span class="watch-dir ${dirCls}">${w.direction}</span>
+            <span class="ticker-badge">${w.ticker}</span>
+            <span class="watch-score ${scoreCls}">${w.score > 0 ? '+' : ''}${w.score}</span>
+            <span class="watch-trigger">${w.trigger}</span>
+            <span class="watch-source">${w.source}</span>
+        </div>`;
+    }).join('');
+}
+
+function renderCatalysts() {
+    const cat = document.getElementById('catalysts');
+    cat.innerHTML = D.catalysts.map(c => {
+        const impactCls = c.impact === 'HIGH' ? 'bg-red' : 'bg-amber';
+        const d = new Date(c.date);
+        const dateStr = (d.getMonth()+1) + '/' + d.getDate();
+        return `<div class="catalyst-item">
+            <span class="catalyst-date">${dateStr}</span>
+            <span class="catalyst-tickers">${c.tickers.join(', ')}</span>
+            <span class="catalyst-event">${c.event}</span>
+            <span class="catalyst-impact ${impactCls}">${c.impact}</span>
+        </div>`;
+    }).join('');
+}
+
+// ═══════ LAUNCH ═══════
+init();
+</script>
+</body>
+</html>
