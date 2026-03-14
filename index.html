@@ -476,6 +476,48 @@
             height: 200px;
         }
 
+        /* ===== FLOW FILTERS ===== */
+        .flow-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .flow-filter-btn {
+            background: rgba(13, 21, 38, 0.7);
+            border: 1px solid #1a2540;
+            color: #8899bb;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .flow-filter-btn:hover {
+            border-color: #2a3f5f;
+            color: #e0e8f0;
+        }
+
+        .flow-filter-btn.active {
+            background: rgba(0, 229, 255, 0.15);
+            border-color: #00e5ff;
+            color: #00e5ff;
+        }
+
+        .flow-filter-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            background: rgba(0, 229, 255, 0.2);
+            padding: 1px 5px;
+            border-radius: 3px;
+            margin-left: 4px;
+        }
+
         /* ===== FLOW CARDS ===== */
         .flow-card {
             background: rgba(13, 21, 38, 0.7);
@@ -484,6 +526,7 @@
             padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
         }
 
         .flow-card:hover {
@@ -491,19 +534,96 @@
             background: rgba(13, 21, 38, 0.9);
         }
 
+        .flow-card.status-filled { border-left: 3px solid #00e396; }
+        .flow-card.status-pending { border-left: 3px solid #ffb300; }
+        .flow-card.status-skipped { border-left: 3px solid #ff4560; opacity: 0.75; }
+        .flow-card.status-watching { border-left: 3px solid #008ffb; }
+        .flow-card.status-queued { border-left: 3px solid #9c27b0; }
+
         .flow-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+        }
+
+        .flow-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .flow-ticker {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 16px;
             color: #00e5ff;
         }
+
+        .flow-tier-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .flow-tier-badge.tier-a {
+            background: rgba(255, 179, 0, 0.2);
+            color: #ffb300;
+            border: 1px solid rgba(255, 179, 0, 0.4);
+        }
+
+        .flow-tier-badge.tier-b {
+            background: rgba(0, 143, 251, 0.2);
+            color: #008ffb;
+            border: 1px solid rgba(0, 143, 251, 0.4);
+        }
+
+        .flow-tier-badge.tier-skip {
+            background: rgba(255, 69, 96, 0.15);
+            color: #ff6b7f;
+            border: 1px solid rgba(255, 69, 96, 0.3);
+        }
+
+        .flow-header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flow-score-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .flow-score-badge.positive {
+            background: rgba(0, 227, 150, 0.15);
+            color: #00e396;
+        }
+
+        .flow-score-badge.negative {
+            background: rgba(255, 69, 96, 0.15);
+            color: #ff4560;
+        }
+
+        .flow-status-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.3px;
+        }
+
+        .flow-status-badge.filled { background: rgba(0, 227, 150, 0.2); color: #00e396; }
+        .flow-status-badge.pending { background: rgba(255, 179, 0, 0.2); color: #ffb300; }
+        .flow-status-badge.skipped { background: rgba(255, 69, 96, 0.2); color: #ff4560; }
+        .flow-status-badge.watching { background: rgba(0, 143, 251, 0.2); color: #008ffb; }
+        .flow-status-badge.queued { background: rgba(156, 39, 176, 0.2); color: #ce93d8; }
 
         .flow-direction {
             font-size: 11px;
@@ -522,19 +642,37 @@
             color: #ff4560;
         }
 
+        .flow-row2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
         .flow-setup {
             font-size: 12px;
             color: #8899bb;
-            margin-bottom: 8px;
+        }
+
+        .flow-source {
+            font-size: 10px;
+            font-weight: 600;
+            color: #6677aa;
+            background: rgba(0, 229, 255, 0.05);
+            padding: 1px 6px;
+            border-radius: 3px;
+            border: 1px solid #1a2540;
         }
 
         .flow-bar {
-            height: 4px;
-            background: linear-gradient(90deg, #008ffb 0%, #00e5ff 100%);
+            height: 3px;
             border-radius: 2px;
             margin-bottom: 8px;
             width: 100%;
         }
+
+        .flow-bar.bullish { background: linear-gradient(90deg, #00e396 0%, #00e5ff 100%); }
+        .flow-bar.bearish { background: linear-gradient(90deg, #ff4560 0%, #ff6b7f 100%); }
 
         .flow-meta {
             display: flex;
@@ -543,6 +681,27 @@
             color: #6677aa;
             font-family: 'JetBrains Mono', monospace;
         }
+
+        .flow-skip-reason {
+            margin-top: 8px;
+            padding: 8px 10px;
+            background: rgba(255, 69, 96, 0.08);
+            border: 1px solid rgba(255, 69, 96, 0.2);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #ff6b7f;
+        }
+
+        .flow-skip-reason strong { color: #ff4560; }
+
+        .flow-expand-hint {
+            text-align: center;
+            font-size: 10px;
+            color: #4a5a7a;
+            margin-top: 6px;
+        }
+
+        .flow-card.expanded .flow-expand-hint { display: none; }
 
         .flow-analysis {
             display: none;
@@ -555,32 +714,122 @@
             display: block;
         }
 
+        .flow-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: #4a6a9a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 12px 0 6px 0;
+        }
+
+        .flow-section-title:first-child { margin-top: 0; }
+
         .factor-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 8px;
         }
 
         .factor-item {
             background: rgba(0, 229, 255, 0.05);
             border: 1px solid #1a2540;
-            padding: 8px;
+            padding: 6px 8px;
             border-radius: 4px;
             font-size: 11px;
         }
 
+        .factor-item.positive { border-color: rgba(0, 227, 150, 0.3); }
+        .factor-item.negative { border-color: rgba(255, 69, 96, 0.3); }
+
         .factor-label {
             color: #8899bb;
             display: block;
+            font-size: 9px;
         }
 
         .factor-value {
-            color: #00e5ff;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
             display: block;
             margin-top: 2px;
+        }
+
+        .factor-value.positive { color: #00e396; }
+        .factor-value.negative { color: #ff4560; }
+        .factor-value.neutral { color: #6677aa; }
+
+        .flow-modifiers {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .modifier-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .modifier-tag.positive {
+            background: rgba(0, 227, 150, 0.1);
+            color: #00e396;
+            border: 1px solid rgba(0, 227, 150, 0.3);
+        }
+
+        .modifier-tag.negative {
+            background: rgba(255, 69, 96, 0.1);
+            color: #ff4560;
+            border: 1px solid rgba(255, 69, 96, 0.3);
+        }
+
+        .chain-rec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .chain-rec-item {
+            background: rgba(0, 229, 255, 0.03);
+            border: 1px solid #1a2540;
+            padding: 6px 8px;
+            border-radius: 4px;
+        }
+
+        .chain-rec-label {
+            font-size: 9px;
+            color: #4a6a9a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chain-rec-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: #e0e8f0;
+            margin-top: 1px;
+        }
+
+        .flow-analysis-text {
+            font-size: 11px;
+            color: #8899bb;
+            padding: 8px 0;
+            border-top: 1px solid #1a2540;
+            line-height: 1.6;
+        }
+
+        .flow-timestamp {
+            font-size: 10px;
+            color: #4a5a7a;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: right;
+            margin-top: 4px;
         }
 
         /* ===== POSITION CARDS ===== */
@@ -791,6 +1040,10 @@
             .factor-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .chain-rec-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -882,7 +1135,7 @@
     </main>
 
     <script>
-        const D = {"meta": {"last_updated": "2026-03-13T22:43:59.065902+00:00", "updated_by": "uw_toolkit", "version": 1}, "account": {"equity": 15074, "buying_power": 33177, "margin_debt": 1863, "margin_buffer_pct": 61.76, "daily_interest": 0.25, "target": 100000, "phase": 1, "phase_name": "PROVE", "phase_next": 25000, "bp": 33177}, "positions": [{"ticker": "HOOD", "type": "shares", "size": "178sh", "entry": 103.5, "current_price": 73.39, "pnl": -5361, "pnl_pct": -29.1, "status": "\ud83d\udd34", "notes": "Owner override. Apr 29 earnings."}, {"ticker": "NVDA", "type": "$180/$230C Jan27", "size": "1x", "entry": 17.45, "mark": 17.95, "pnl": 50, "pnl_pct": 2.9, "status": "\ud83d\udfe2", "notes": "GTC Mon. Jensen keynote Mar 16. $0.25 above SL!"}, {"ticker": "IGV", "type": "$85/$80P 4/17", "size": "1x", "entry": 1.6, "mark": 1.92, "pnl": 32, "pnl_pct": 20.0, "status": "\ud83d\udfe2", "notes": "ITM. Best position. TP1 $3.28."}, {"ticker": "DHR", "type": "$200C Jun18", "size": "1x", "entry": 7.1, "mark": 7.45, "pnl": 35, "pnl_pct": 4.9, "status": "\ud83d\udfe2", "notes": "Flow confirms. Earnings 4/21."}, {"ticker": "LEN", "type": "$100/$110C 4/17", "size": "1x", "entry": 2.37, "mark": 2.18, "pnl": -19, "pnl_pct": -8.0, "status": "\ud83d\udd34", "notes": "Q1 miss. Thesis weakening."}, {"ticker": "AXSM", "type": "$170C May15", "size": "1x", "entry": 10.0, "mark": 9.95, "pnl": -5, "pnl_pct": -0.5, "status": "\ud83d\udfe1", "notes": "Flow confirms. UBS PT $251."}], "budgets": {"dte_weekly_limit": 600, "dte_weekly_used": 412, "dte_weekly_pnl": -91, "swing_limit": 1500, "swing_deployed": 2107, "swing_slots_used": 4, "swing_slots_max": 4, "kill_switch": -900, "weekly_pnl": 139, "dte_used": 412, "dte_total": 600, "dte_remaining": 188, "swing_slots_total": 4}, "risk": {"heat_pct": 25.6, "heat_limit": 35, "heat_status": "\u2705 (ex-HOOD)", "net_delta": 283, "delta_bias": "LONG", "vix": 26.48, "vix_tier": "HIGH", "current_streak_w": 2, "current_streak_l": 0}, "performance": {"stats": {"dte_tier_a": {"wins": 1, "losses": 0, "total_pnl": 367}, "dte_tier_b": {"wins": 1, "losses": 2, "total_pnl": -131}, "swing_tier_a": {"wins": 2, "losses": 0, "total_pnl": 276}, "swing_tier_b": {"wins": 1, "losses": 2, "total_pnl": -38}}, "equity_history": [{"date": "2026-03-03", "equity": 14200}, {"date": "2026-03-04", "equity": 14350}, {"date": "2026-03-05", "equity": 14500}, {"date": "2026-03-06", "equity": 14867}, {"date": "2026-03-07", "equity": 14750}, {"date": "2026-03-09", "equity": 14600}, {"date": "2026-03-10", "equity": 14700}, {"date": "2026-03-11", "equity": 14850}, {"date": "2026-03-12", "equity": 14950}, {"date": "2026-03-13", "equity": 15100}], "weekly_pnl_history": [{"week": "2026-W09", "pnl": -38}, {"week": "2026-W10", "pnl": 517}, {"week": "2026-W11", "pnl": 139}]}, "trades": [{"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 2.76, "exit": 4.19, "pnl": 143, "pnl_pct": 51.8, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 1.76, "exit": 3.07, "pnl": 131, "pnl_pct": 74.4, "score": -4.0, "tier": "B", "result": "WIN"}, {"date": "2026-03-12", "ticker": "SPY", "type": "0DTE naked", "entry": 1.18, "exit": 0.07, "pnl": -222, "pnl_pct": -94, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-12", "ticker": "SMH", "type": "swing spread", "entry": 1.95, "exit": 2.82, "pnl": 87, "pnl_pct": 44.6, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-09", "ticker": "HOOD", "type": "CSP", "entry": 2.57, "exit": 2.84, "pnl": -27, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "SOXX", "type": "swing spread", "entry": 3.62, "exit": 3.24, "pnl": -38, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "IWM", "type": "swing spread", "entry": 1.69, "exit": 3.58, "pnl": 189, "pnl_pct": 112, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE naked", "entry": 3.44, "exit": 7.11, "pnl": 367, "pnl_pct": 107, "score": null, "tier": "A", "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE spread", "entry": 0.89, "exit": 0.5, "pnl": -39, "pnl_pct": -44, "score": null, "tier": null, "result": "LOSS"}], "watchlist": [{"ticker": "LQDA", "setup": "$30/$25P Apr17", "score": -5.0, "tier": "A", "source": "FLOW-SCAN", "risk": 160, "status": "QUEUED"}, {"ticker": "PPG", "setup": "$100/$95P Apr17", "score": -4.0, "tier": "A", "source": "FLOW-SCAN", "risk": 160, "status": "QUEUED"}, {"ticker": "CIEN", "setup": "$320/$310P Mar27", "score": -4.0, "tier": "A", "source": "FLOW-SCAN", "risk": "TBD", "status": "Verify RH"}, {"ticker": "ITT", "setup": "$185/$195C Apr17", "score": 3.5, "tier": "B", "source": "FLOW-SCAN", "risk": "TBD", "status": "Verify RH"}, {"ticker": "IVZ", "setup": "$23/$25C Jul17", "score": 3.5, "tier": "B", "source": "FLOW-SCAN", "risk": "TBD", "status": "Verify RH"}, {"ticker": "KKR", "setup": "$90/$95C May15", "score": 3.0, "tier": "B", "source": "FLOW-SCAN", "risk": 200, "status": "Limit $2.00-2.10"}, {"ticker": "MOH", "setup": "$140/$130P Jun18", "score": -3.0, "tier": "B", "source": "COUNTERTREND", "risk": "TBD", "status": "QUEUED"}, {"ticker": "KR", "setup": "$72P Jun18", "score": -3.5, "tier": "B", "source": "FLOW-SCAN", "risk": "TBD", "status": "QUEUED"}, {"ticker": "MU", "setup": "Put spread", "score": -5.5, "tier": "A", "source": "COUNTERTREND", "risk": "TBD", "status": "Re-score evening"}, {"ticker": "MDB", "setup": "Put spread", "score": 4.0, "tier": "A", "source": "FLOW-SCAN", "risk": "TBD", "status": "Day 2/3 STALE"}], "catalysts": [{"date": "2026-03-16", "ticker": "NVDA", "event": "Jensen GTC keynote \u2014 BINARY for spread", "priority": "\ud83d\uded1"}, {"date": "2026-03-20", "ticker": "Options", "event": "Monthly opex \u2014 max pain $674 SPY", "priority": "\u26a0\ufe0f"}, {"date": "2026-04-21", "ticker": "DHR", "event": "DHR earnings \u2014 Jun18 expiry through earnings", "priority": "\u26a0\ufe0f"}, {"date": "2026-04-29", "ticker": "HOOD", "event": "HOOD earnings \u2014 recovery catalyst target", "priority": "\ud83d\udccb"}], "market": {"spy_price": 662.29, "spy_change_pct": -0.36, "vix": 26.48, "pc_ratio": 1.08, "gex_regime": "Negative gamma", "max_pain_weekly": 680, "trend": "BEARISH", "vix_tier": "HIGH"}, "flow_alerts": [{"ticker": "DHR", "setup": "$200C Jun18", "premium": 690000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.5, "tier": "A", "factors": [{"name": "Flow", "value": 2}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 1}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 1}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Insider", "value": 0.5}, {"name": "Max Pain", "value": -0.5}, {"name": "Analyst", "value": 0.5}], "analysis": "$690K $200C at ask. Vol/OI 8.2x. Institutional accumulation confirmed by dark pool prints. Earnings 4/21 \u2014 spread through catalyst. Flow aligns with UBS upgrade.", "chain_rec": {"setup": "$200C Jun18 x1", "entry": "$7.10", "sl": "$3.55 (50%)", "tp1": "$10.65 (50%)", "tp2": "$12.43 (75%)", "be": "$207.10", "risk": "$710", "rr": "1:2.26", "delta": "0.42", "theta": "-$0.08", "iv_rank": "34 FAIR", "max_pain": "$195", "expiry": "Jun 18", "time_stop": "4/17 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "LQDA", "setup": "$30/$25P Apr17", "premium": 1620000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "PENDING", "score": -5.0, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -0.5}, {"name": "IV Rank", "value": -1}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$1.62M $30P at ask. Vol/OI 14.8x. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "chain_rec": {"setup": "$30/$25P Apr17", "entry": "$1.50-$1.60", "sl": "$0.80", "tp1": "$3.30", "tp2": "$4.15", "be": "$28.40", "risk": "$160", "rr": "1:2.13", "delta": "-0.38", "theta": "-$0.04", "iv_rank": "60.6 HIGH", "max_pain": "$32.50", "expiry": "Apr 17", "time_stop": "4/7 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "AXSM", "setup": "$170C May15", "premium": 850000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.0, "tier": "A", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0.5}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Analyst", "value": 0.5}], "analysis": "UBS PT $251. Multiple sweeps at ask. Pivoted from spread to naked call \u2014 RH $3.40 wide on spread. Owner override on swing budget.", "chain_rec": {"setup": "$170C May15 naked x1", "entry": "$10.00", "sl": "$5.00 (50%)", "tp1": "$15.00 (50%)", "tp2": "$17.50 (75%)", "be": "$180.00", "risk": "$1,000", "rr": "1:1.50", "delta": "0.45", "theta": "-$0.12"}, "timestamp": "2026-03-13T19:37:00+00:00"}, {"ticker": "MOH", "setup": "$140/$130P Jun18", "premium": 690000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "WATCHING", "score": -3.0, "tier": "B", "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$690K $140P at ask on green stock. Countertrend signal. BUT contradicted by $690K calls at ask same session. Lower conviction due to conflicting flow.", "timestamp": "2026-03-13T18:15:00+00:00"}, {"ticker": "MU", "setup": "Put spread TBD", "premium": 2100000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "QUEUED", "score": -5.5, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -1}, {"name": "IV Rank", "value": -0.5}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$2.1M put sweep at ask. Massive institutional positioning. Re-score in evening for strike selection.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"ticker": "KKR", "setup": "$90/$95C May15", "premium": 1600000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "PENDING", "score": 3.0, "tier": "B", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$1.6M $100C at ask. Max pain $95. R/R 1:1.56.", "chain_rec": {"setup": "$90/$95C May15", "entry": "$2.00-$2.10", "sl": "$0.95", "tp1": "$2.93", "tp2": "$3.41", "be": "$91.95", "risk": "$200", "rr": "1:1.56"}, "timestamp": "2026-03-13T20:00:00+00:00"}], "latest_0dte_score": {"total": -4.0, "direction": "BEARISH", "tier": "Tier B", "factors": [{"name": "Mkt Tide", "value": -1}, {"name": "Gamma", "value": -1.5}, {"name": "Flow", "value": -1}, {"name": "15m Candle", "value": -0.5}, {"name": "Volume", "value": 0.5}, {"name": "Event", "value": 0}, {"name": "TA Trend", "value": -0.5}, {"name": "Momentum", "value": 0}], "timestamp": "2026-03-13T16:45:00+00:00"}, "actions": [{"type": "entry", "priority": "high", "title": "LQDA $30/$25P Apr17", "ticker": "LQDA", "summary": "Tier A score -5.0. Limit $1.50-$1.60. FLOW-SCAN $1.62M $30P at ask.", "detail": "SL $0.80, TP1 $3.30, TP2 $4.15, BE $28.40. $160 risk. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "entry", "priority": "medium", "title": "KKR $90/$95C May15", "ticker": "KKR", "summary": "Tier B score +3.0. Limit $2.00-$2.10.", "detail": "$1.6M $100C at ask. Max pain $95. SL $0.95, TP1 $2.93, TP2 $3.41. $200 risk. R/R 1:1.56.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "verify", "priority": "medium", "title": "Check RH bid/ask on 3 tickers", "ticker": null, "summary": "PPG $100/$95P, CIEN $320/$310P, ITT $185/$195C \u2014 UW shows $0 NBBO", "detail": "UW has no pricing data for these low-volume strikes. Need to verify actual bid/ask quotes on Robinhood before entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "warning", "priority": "high", "title": "NVDA GTC Keynote \u2014 Sunday Mar 16", "ticker": "NVDA", "summary": "BINARY event for $180/$230C spread. Review IV crush risk.", "detail": "GTC CHECKLIST: (1) Check IV crush risk post-event, (2) If NVDA >$197.45 (BE) consider rolling up, (3) If NVDA <$170 pre-GTC evaluate cutting early. Spread only $0.25 above SL.", "timestamp": "2026-03-13T22:00:00+00:00"}, {"type": "monitor", "priority": "low", "title": "LEN thesis weakening", "ticker": "LEN", "summary": "Q1 miss. -8.0% from entry. SL at $1.19 (50%).", "detail": "Consider closing if thesis doesn't recover by 4/7 time stop. Currently $2.18 mark vs $2.37 entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "review", "priority": "low", "title": "MU put spread \u2014 re-score evening", "ticker": "MU", "summary": "Tier A score -5.5 but needs strike selection.", "detail": "$2.1M countertrend put sweep. Needs full chain rec with NBBO verification.", "timestamp": "2026-03-13T20:00:00+00:00"}], "changes": [{"type": "trade", "text": "SPY $670/$660P closed +$143 (+51.8%) \u2014 near TP1", "source": "intraday-flow", "timestamp": "2026-03-13T18:13:00+00:00"}, {"type": "trade", "text": "SPY $670/$665P 0DTE closed +$131 (+74.4%) \u2014 Score -4.0 Tier B", "source": "intraday-flow", "timestamp": "2026-03-13T18:00:00+00:00"}, {"type": "position", "text": "AXSM $170C May15 FILLED @ $10.00 \u2014 pivoted from spread (RH $3.40 wide)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "flow", "text": "DHR scored +4.5 Tier A \u2014 $690K $200C flow confirmed. FILLED $7.10", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "LQDA scored -5.0 Tier A \u2014 $1.62M $30P at ask. PENDING entry.", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "MU countertrend -5.5 Tier A \u2014 $2.1M put sweep. QUEUED for evening.", "source": "intraday-flow", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "risk", "text": "Swing budget OVER LIMIT: $2,107 deployed vs $1,500 limit (owner override for AXSM)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "market", "text": "VIX 26.48 \u2014 HIGH tier. No new long equity. Spreads + 0DTE allowed.", "source": "market-close", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "score", "text": "0DTE final score -4.0 BEARISH (Tier B). Two put spreads filled for +$274 combined.", "source": "market-open", "timestamp": "2026-03-13T16:45:00+00:00"}, {"type": "alert", "text": "NVDA spread only $0.25 above SL. GTC keynote Sunday = BINARY event.", "source": "peak-monitor", "timestamp": "2026-03-13T15:30:00+00:00"}]};
+        const D = {"meta": {"last_updated": "2026-03-14T00:15:16.813746+00:00", "updated_by": "uw_toolkit", "version": 1}, "account": {"equity": 15074, "buying_power": 33177, "margin_debt": 1863, "margin_buffer_pct": 61.76, "daily_interest": 0.25, "target": 100000, "phase": 1, "phase_name": "PROVE", "phase_next": 25000, "bp": 33177}, "positions": [{"ticker": "HOOD", "type": "shares", "size": "178sh", "entry": 103.5, "current": 73.39, "pnl": -5360, "pnl_pct": -29.1, "status": "\ud83d\udd34", "notes": "Owner override. Apr 29 earnings."}, {"ticker": "NVDA", "type": "LEAPS spread", "size": "$180/$230C Jan27", "entry": 17.45, "current": 17.98, "pnl": 53, "pnl_pct": 3.0, "status": "\ud83d\udfe2", "notes": "GTC Mon. Jensen Mar 16."}, {"ticker": "IGV", "type": "put spread", "size": "$85/$80P 4/17", "entry": 1.6, "current": 1.91, "pnl": 31, "pnl_pct": 19.4, "status": "\ud83d\udfe2", "notes": "TP1 $3.28. Best position."}, {"ticker": "DHR", "type": "naked call", "size": "$200C Jun18", "entry": 7.1, "current": 7.4, "pnl": 30, "pnl_pct": 4.2, "status": "\ud83d\udfe2", "notes": "Earnings 4/21."}, {"ticker": "LEN", "type": "call spread", "size": "$100/$110C 4/17", "entry": 2.37, "current": 1.49, "pnl": -88, "pnl_pct": -37.1, "status": "\ud83d\udd34", "notes": "Near SL $1.19."}, {"ticker": "AXSM", "type": "naked call", "size": "$170C May15", "entry": 10.0, "current": 10.6, "pnl": 60, "pnl_pct": 6.0, "status": "\ud83d\udfe1", "notes": "Flow-confirmed."}], "budgets": {"dte_weekly_limit": 600, "dte_weekly_used": 412, "dte_weekly_pnl": -91, "swing_limit": 1500, "swing_deployed": "4/4", "swing_slots_used": 4, "swing_slots_max": 4, "kill_switch": -900, "weekly_pnl": 139, "dte_used": 412, "dte_total": 600, "dte_remaining": 188, "swing_slots_total": 4, "swing_budget_used": 2107, "swing_budget_total": 1500}, "risk": {"heat_pct": 25.6, "heat_limit": 35, "heat_status": "\u2705 OK (ex-HOOD)", "net_delta": 283, "delta_bias": "LONG \u26a0\ufe0f bear trend", "vix": 26.48, "vix_tier": "HIGH", "current_streak_w": 2, "current_streak_l": 0}, "performance": {"stats": {"dte_tier_a": {"wins": 1, "losses": 0, "total_pnl": 367}, "dte_tier_b": {"wins": 1, "losses": 2, "total_pnl": -131}, "swing_tier_a": {"wins": 2, "losses": 0, "total_pnl": 276}, "swing_tier_b": {"wins": 1, "losses": 2, "total_pnl": -38}}, "equity_history": [{"date": "2026-03-03", "equity": 14200}, {"date": "2026-03-04", "equity": 14350}, {"date": "2026-03-05", "equity": 14500}, {"date": "2026-03-06", "equity": 14867}, {"date": "2026-03-07", "equity": 14750}, {"date": "2026-03-09", "equity": 14600}, {"date": "2026-03-10", "equity": 14700}, {"date": "2026-03-11", "equity": 14850}, {"date": "2026-03-12", "equity": 14950}, {"date": "2026-03-13", "equity": 15100}], "weekly_pnl_history": [{"week": "2026-W09", "pnl": -38}, {"week": "2026-W10", "pnl": 517}, {"week": "2026-W11", "pnl": 139}]}, "trades": [{"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 2.76, "exit": 4.19, "pnl": 143, "pnl_pct": 51.8, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 1.76, "exit": 3.07, "pnl": 131, "pnl_pct": 74.4, "score": -4.0, "tier": "B", "result": "WIN"}, {"date": "2026-03-12", "ticker": "SPY", "type": "0DTE naked", "entry": 1.18, "exit": 0.07, "pnl": -222, "pnl_pct": -94, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-12", "ticker": "SMH", "type": "swing spread", "entry": 1.95, "exit": 2.82, "pnl": 87, "pnl_pct": 44.6, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-09", "ticker": "HOOD", "type": "CSP", "entry": 2.57, "exit": 2.84, "pnl": -27, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "SOXX", "type": "swing spread", "entry": 3.62, "exit": 3.24, "pnl": -38, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "IWM", "type": "swing spread", "entry": 1.69, "exit": 3.58, "pnl": 189, "pnl_pct": 112, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE naked", "entry": 3.44, "exit": 7.11, "pnl": 367, "pnl_pct": 107, "score": null, "tier": "A", "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE spread", "entry": 0.89, "exit": 0.5, "pnl": -39, "pnl_pct": -44, "score": null, "tier": null, "result": "LOSS"}], "watchlist": [{"ticker": "LQDA", "direction": "BEAR", "spread": "$30/$25P Apr17", "score": -5.0, "tier": "A", "trigger": "Limit $1.50-$1.60", "source": "FLOW-SCAN", "nbbo": "$1.33 mid \u2705"}, {"ticker": "PPG", "direction": "BEAR", "spread": "$100/$95P Apr17", "score": -4.0, "tier": "A", "trigger": "Limit $1.60", "source": "FLOW-SCAN", "nbbo": "$1.60 mid \u2705"}, {"ticker": "KKR", "direction": "BULL", "spread": "$90/$95C May15", "score": 3.0, "tier": "B", "trigger": "Limit $2.00-$2.10", "source": "FLOW-SCAN", "nbbo": "$3.05 mid \u2705"}, {"ticker": "BWA", "direction": "BULL", "spread": "$55/$60C May15", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "ITT", "direction": "BULL", "spread": "$185/$195C Apr17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "CIEN", "direction": "BEAR", "spread": "$320/$310P Mar27", "score": -4.0, "tier": "A", "trigger": "Verify RH Monday", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "IVZ", "direction": "BULL", "spread": "$23/$25C Jul17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "MOH", "direction": "BEAR", "spread": "$140/$130P Jun18", "score": -3.0, "tier": "B", "trigger": "Verify RH bid/ask", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "KR", "direction": "BEAR", "spread": "$72P Jun18", "score": -3.5, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}, {"ticker": "CACC", "direction": "BEAR", "spread": "$450P May15", "score": -3.0, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}], "catalysts": [{"date": "2026-03-16", "event": "NVIDIA GTC Jensen keynote", "impact": "HIGH", "tickers": ["NVDA"]}, {"date": "2026-03-18", "event": "FOMC rate decision + press conference", "impact": "HIGH", "tickers": ["SPY"]}, {"date": "2026-03-20", "event": "Quad witching (options expiry)", "impact": "MEDIUM", "tickers": ["SPY"]}, {"date": "2026-04-21", "event": "DHR earnings", "impact": "MEDIUM", "tickers": ["DHR"]}, {"date": "2026-04-29", "event": "HOOD earnings", "impact": "HIGH", "tickers": ["HOOD"]}], "market": {"spy_price": 662.29, "spy_change_pct": -1.04, "vix": 26.48, "pc_ratio": 1.09, "gex_regime": "Negative gamma \u2014 trend acceleration", "max_pain_weekly": 674, "trend": "BEARISH \u2014 below 9/21/50 EMA, above 200SMA", "vix_tier": "HIGH"}, "flow_alerts": [{"ticker": "DHR", "setup": "$200C Jun18", "premium": 690000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.5, "tier": "A", "factors": [{"name": "Flow", "value": 2}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 1}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 1}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Insider", "value": 0.5}, {"name": "Max Pain", "value": -0.5}, {"name": "Analyst", "value": 0.5}], "analysis": "$690K $200C at ask. Vol/OI 8.2x. Institutional accumulation confirmed by dark pool prints. Earnings 4/21 \u2014 spread through catalyst. Flow aligns with UBS upgrade.", "chain_rec": {"setup": "$200C Jun18 x1", "entry": "$7.10", "sl": "$3.55 (50%)", "tp1": "$10.65 (50%)", "tp2": "$12.43 (75%)", "be": "$207.10", "risk": "$710", "rr": "1:2.26", "delta": "0.42", "theta": "-$0.08", "iv_rank": "34 FAIR", "max_pain": "$195", "expiry": "Jun 18", "time_stop": "4/17 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "LQDA", "setup": "$30/$25P Apr17", "premium": 1620000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "PENDING", "score": -5.0, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -0.5}, {"name": "IV Rank", "value": -1}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$1.62M $30P at ask. Vol/OI 14.8x. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "chain_rec": {"setup": "$30/$25P Apr17", "entry": "$1.50-$1.60", "sl": "$0.80", "tp1": "$3.30", "tp2": "$4.15", "be": "$28.40", "risk": "$160", "rr": "1:2.13", "delta": "-0.38", "theta": "-$0.04", "iv_rank": "60.6 HIGH", "max_pain": "$32.50", "expiry": "Apr 17", "time_stop": "4/7 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "AXSM", "setup": "$170C May15", "premium": 850000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.0, "tier": "A", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0.5}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Analyst", "value": 0.5}], "analysis": "UBS PT $251. Multiple sweeps at ask. Pivoted from spread to naked call \u2014 RH $3.40 wide on spread. Owner override on swing budget.", "chain_rec": {"setup": "$170C May15 naked x1", "entry": "$10.00", "sl": "$5.00 (50%)", "tp1": "$15.00 (50%)", "tp2": "$17.50 (75%)", "be": "$180.00", "risk": "$1,000", "rr": "1:1.50", "delta": "0.45", "theta": "-$0.12"}, "timestamp": "2026-03-13T19:37:00+00:00"}, {"ticker": "MOH", "setup": "$140/$130P Jun18", "premium": 690000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "WATCHING", "score": -3.0, "tier": "B", "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$690K $140P at ask on green stock. Countertrend signal. BUT contradicted by $690K calls at ask same session. Lower conviction due to conflicting flow.", "timestamp": "2026-03-13T18:15:00+00:00"}, {"ticker": "MU", "setup": "Put spread TBD", "premium": 2100000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "QUEUED", "score": -5.5, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -1}, {"name": "IV Rank", "value": -0.5}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$2.1M put sweep at ask. Massive institutional positioning. Re-score in evening for strike selection.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"ticker": "KKR", "setup": "$90/$95C May15", "premium": 1600000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "PENDING", "score": 3.0, "tier": "B", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$1.6M $100C at ask. Max pain $95. R/R 1:1.56.", "chain_rec": {"setup": "$90/$95C May15", "entry": "$2.00-$2.10", "sl": "$0.95", "tp1": "$2.93", "tp2": "$3.41", "be": "$91.95", "risk": "$200", "rr": "1:1.56"}, "timestamp": "2026-03-13T20:00:00+00:00"}], "latest_0dte_score": {"total": -4.0, "direction": "BEARISH", "tier": "Tier B", "factors": [{"name": "Mkt Tide", "value": -1}, {"name": "Gamma", "value": -1.5}, {"name": "Flow", "value": -1}, {"name": "15m Candle", "value": -0.5}, {"name": "Volume", "value": 0.5}, {"name": "Event", "value": 0}, {"name": "TA Trend", "value": -0.5}, {"name": "Momentum", "value": 0}], "timestamp": "2026-03-13T16:45:00+00:00"}, "actions": [{"type": "entry", "priority": "high", "title": "LQDA $30/$25P Apr17", "ticker": "LQDA", "summary": "Tier A score -5.0. Limit $1.50-$1.60. FLOW-SCAN $1.62M $30P at ask.", "detail": "SL $0.80, TP1 $3.30, TP2 $4.15, BE $28.40. $160 risk. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "entry", "priority": "medium", "title": "KKR $90/$95C May15", "ticker": "KKR", "summary": "Tier B score +3.0. Limit $2.00-$2.10.", "detail": "$1.6M $100C at ask. Max pain $95. SL $0.95, TP1 $2.93, TP2 $3.41. $200 risk. R/R 1:1.56.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "verify", "priority": "medium", "title": "Check RH bid/ask on 3 tickers", "ticker": null, "summary": "PPG $100/$95P, CIEN $320/$310P, ITT $185/$195C \u2014 UW shows $0 NBBO", "detail": "UW has no pricing data for these low-volume strikes. Need to verify actual bid/ask quotes on Robinhood before entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "warning", "priority": "high", "title": "NVDA GTC Keynote \u2014 Sunday Mar 16", "ticker": "NVDA", "summary": "BINARY event for $180/$230C spread. Review IV crush risk.", "detail": "GTC CHECKLIST: (1) Check IV crush risk post-event, (2) If NVDA >$197.45 (BE) consider rolling up, (3) If NVDA <$170 pre-GTC evaluate cutting early. Spread only $0.25 above SL.", "timestamp": "2026-03-13T22:00:00+00:00"}, {"type": "monitor", "priority": "low", "title": "LEN thesis weakening", "ticker": "LEN", "summary": "Q1 miss. -8.0% from entry. SL at $1.19 (50%).", "detail": "Consider closing if thesis doesn't recover by 4/7 time stop. Currently $2.18 mark vs $2.37 entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "review", "priority": "low", "title": "MU put spread \u2014 re-score evening", "ticker": "MU", "summary": "Tier A score -5.5 but needs strike selection.", "detail": "$2.1M countertrend put sweep. Needs full chain rec with NBBO verification.", "timestamp": "2026-03-13T20:00:00+00:00"}], "changes": [{"type": "trade", "text": "SPY $670/$660P closed +$143 (+51.8%) \u2014 near TP1", "source": "intraday-flow", "timestamp": "2026-03-13T18:13:00+00:00"}, {"type": "trade", "text": "SPY $670/$665P 0DTE closed +$131 (+74.4%) \u2014 Score -4.0 Tier B", "source": "intraday-flow", "timestamp": "2026-03-13T18:00:00+00:00"}, {"type": "position", "text": "AXSM $170C May15 FILLED @ $10.00 \u2014 pivoted from spread (RH $3.40 wide)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "flow", "text": "DHR scored +4.5 Tier A \u2014 $690K $200C flow confirmed. FILLED $7.10", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "LQDA scored -5.0 Tier A \u2014 $1.62M $30P at ask. PENDING entry.", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "MU countertrend -5.5 Tier A \u2014 $2.1M put sweep. QUEUED for evening.", "source": "intraday-flow", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "risk", "text": "Swing budget OVER LIMIT: $2,107 deployed vs $1,500 limit (owner override for AXSM)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "market", "text": "VIX 26.48 \u2014 HIGH tier. No new long equity. Spreads + 0DTE allowed.", "source": "market-close", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "score", "text": "0DTE final score -4.0 BEARISH (Tier B). Two put spreads filled for +$274 combined.", "source": "market-open", "timestamp": "2026-03-13T16:45:00+00:00"}, {"type": "alert", "text": "NVDA spread only $0.25 above SL. GTC keynote Sunday = BINARY event.", "source": "peak-monitor", "timestamp": "2026-03-13T15:30:00+00:00"}]};
 
         const TABS = ['actions', 'overview', 'flow', 'positions', 'performance', 'watchlist'];
         let currentTab = 'actions';
