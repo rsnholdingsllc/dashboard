@@ -64,6 +64,19 @@
             font-weight: 600;
         }
 
+        .last-refresh {
+            font-size: 10px;
+            color: #4a6a9a;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .last-refresh-time {
+            color: #6677aa;
+            font-weight: 500;
+        }
+
         .kpi-strip {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1316,9 +1329,12 @@
     <header>
         <div class="header-top">
             <div class="logo">→ TERMINAL</div>
-            <div class="equity-badge" id="equityBadge">
-                <span>Equity:</span>
-                <span class="equity-value" id="equityValue">$0</span>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <div class="last-refresh" id="lastRefresh"></div>
+                <div class="equity-badge" id="equityBadge">
+                    <span>Equity:</span>
+                    <span class="equity-value" id="equityValue">$0</span>
+                </div>
             </div>
         </div>
         <div class="kpi-strip" id="kpiStrip"></div>
@@ -1350,6 +1366,14 @@
         function renderHeader() {
             const equity = D.account?.equity || 0;
             document.getElementById('equityValue').textContent = `$${formatNumber(equity)}`;
+
+            // Last refresh timestamp
+            var lastUpdated = D.meta?.last_updated;
+            if (lastUpdated) {
+                var d = new Date(lastUpdated);
+                var timeStr = d.toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true,timeZoneName:'short'});
+                document.getElementById('lastRefresh').innerHTML = '<span style="color:#4a6a9a;">Last refresh</span><br><span class="last-refresh-time">' + timeStr + '</span>';
+            }
 
             const kpiData = [
                 { label: 'SPY', value: D.market?.spy_price || 0, format: 'price' },
