@@ -1097,10 +1097,210 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .chain-rec-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .flow-filters {
+                gap: 4px;
+            }
+
+            .flow-filter-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .flow-ticker {
+                font-size: 14px;
+            }
+
             .score-dial-compact {
                 flex-direction: column;
                 text-align: center;
             }
+        }
+
+        /* ===== NEWS FEED ===== */
+        .news-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #1a2540;
+            font-size: 12px;
+        }
+
+        .news-item:last-child { border-bottom: none; }
+
+        .news-sentiment {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 5px;
+        }
+
+        .news-sentiment.bullish { background: #00e396; }
+        .news-sentiment.bearish { background: #ff4560; }
+        .news-sentiment.neutral { background: #6677aa; }
+
+        .news-headline { color: #c0cce0; flex: 1; }
+        .news-headline.major { color: #e0e8f0; font-weight: 600; }
+
+        .news-tickers {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #00e5ff;
+            flex-shrink: 0;
+        }
+
+        .news-time {
+            font-size: 10px;
+            color: #4a5a7a;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        /* ===== TA LEVELS ===== */
+        .ta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(26, 37, 64, 0.5);
+        }
+
+        .ta-row:last-child { border-bottom: none; }
+
+        .ta-label { color: #6677aa; }
+
+        .ta-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: #e0e8f0;
+        }
+
+        .ta-value.above-price { color: #ff4560; }
+        .ta-value.below-price { color: #00e396; }
+
+        .level-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .level-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .level-tag.support {
+            background: rgba(0, 227, 150, 0.1);
+            color: #00e396;
+            border: 1px solid rgba(0, 227, 150, 0.2);
+        }
+
+        .level-tag.resistance {
+            background: rgba(255, 69, 96, 0.1);
+            color: #ff4560;
+            border: 1px solid rgba(255, 69, 96, 0.2);
+        }
+
+        /* ===== TASK LOG ===== */
+        .task-log-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid #1a2540;
+            font-size: 11px;
+        }
+
+        .task-log-item:last-child { border-bottom: none; }
+
+        .task-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #4a6a9a;
+            flex-shrink: 0;
+            width: 60px;
+        }
+
+        .task-name {
+            font-weight: 600;
+            color: #00e5ff;
+            flex-shrink: 0;
+            width: 120px;
+            font-size: 10px;
+        }
+
+        .task-summary {
+            color: #8899bb;
+            flex: 1;
+        }
+
+        .task-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .task-status-dot.completed { background: #00e396; }
+        .task-status-dot.running { background: #ffb300; }
+        .task-status-dot.pending { background: #4a5a7a; }
+
+        /* ===== MARKET REGIME CARD ===== */
+        .regime-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #1a2540;
+            font-size: 11px;
+        }
+
+        .regime-row:last-child { border-bottom: none; }
+
+        .regime-label { color: #6677aa; }
+
+        .regime-value {
+            color: #e0e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-align: right;
+            max-width: 55%;
+        }
+
+        /* ===== SECTOR TAGS ===== */
+        .sector-tag {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .sector-tag.green {
+            background: rgba(0, 227, 150, 0.1);
+            color: #00e396;
+        }
+
+        .sector-tag.red {
+            background: rgba(255, 69, 96, 0.1);
+            color: #ff4560;
+        }
+
+        /* ===== DAILY SUMMARY ===== */
+        .daily-summary-text {
+            font-size: 12px;
+            color: #8899bb;
+            line-height: 1.7;
+            padding: 8px 0;
         }
 
         /* ===== UTILITIES ===== */
@@ -1135,7 +1335,7 @@
     </main>
 
     <script>
-        const D = {"meta": {"last_updated": "2026-03-14T00:15:16.813746+00:00", "updated_by": "uw_toolkit", "version": 1}, "account": {"equity": 15074, "buying_power": 33177, "margin_debt": 1863, "margin_buffer_pct": 61.76, "daily_interest": 0.25, "target": 100000, "phase": 1, "phase_name": "PROVE", "phase_next": 25000, "bp": 33177}, "positions": [{"ticker": "HOOD", "type": "shares", "size": "178sh", "entry": 103.5, "current": 73.39, "pnl": -5360, "pnl_pct": -29.1, "status": "\ud83d\udd34", "notes": "Owner override. Apr 29 earnings."}, {"ticker": "NVDA", "type": "LEAPS spread", "size": "$180/$230C Jan27", "entry": 17.45, "current": 17.98, "pnl": 53, "pnl_pct": 3.0, "status": "\ud83d\udfe2", "notes": "GTC Mon. Jensen Mar 16."}, {"ticker": "IGV", "type": "put spread", "size": "$85/$80P 4/17", "entry": 1.6, "current": 1.91, "pnl": 31, "pnl_pct": 19.4, "status": "\ud83d\udfe2", "notes": "TP1 $3.28. Best position."}, {"ticker": "DHR", "type": "naked call", "size": "$200C Jun18", "entry": 7.1, "current": 7.4, "pnl": 30, "pnl_pct": 4.2, "status": "\ud83d\udfe2", "notes": "Earnings 4/21."}, {"ticker": "LEN", "type": "call spread", "size": "$100/$110C 4/17", "entry": 2.37, "current": 1.49, "pnl": -88, "pnl_pct": -37.1, "status": "\ud83d\udd34", "notes": "Near SL $1.19."}, {"ticker": "AXSM", "type": "naked call", "size": "$170C May15", "entry": 10.0, "current": 10.6, "pnl": 60, "pnl_pct": 6.0, "status": "\ud83d\udfe1", "notes": "Flow-confirmed."}], "budgets": {"dte_weekly_limit": 600, "dte_weekly_used": 412, "dte_weekly_pnl": -91, "swing_limit": 1500, "swing_deployed": "4/4", "swing_slots_used": 4, "swing_slots_max": 4, "kill_switch": -900, "weekly_pnl": 139, "dte_used": 412, "dte_total": 600, "dte_remaining": 188, "swing_slots_total": 4, "swing_budget_used": 2107, "swing_budget_total": 1500}, "risk": {"heat_pct": 25.6, "heat_limit": 35, "heat_status": "\u2705 OK (ex-HOOD)", "net_delta": 283, "delta_bias": "LONG \u26a0\ufe0f bear trend", "vix": 26.48, "vix_tier": "HIGH", "current_streak_w": 2, "current_streak_l": 0}, "performance": {"stats": {"dte_tier_a": {"wins": 1, "losses": 0, "total_pnl": 367}, "dte_tier_b": {"wins": 1, "losses": 2, "total_pnl": -131}, "swing_tier_a": {"wins": 2, "losses": 0, "total_pnl": 276}, "swing_tier_b": {"wins": 1, "losses": 2, "total_pnl": -38}}, "equity_history": [{"date": "2026-03-03", "equity": 14200}, {"date": "2026-03-04", "equity": 14350}, {"date": "2026-03-05", "equity": 14500}, {"date": "2026-03-06", "equity": 14867}, {"date": "2026-03-07", "equity": 14750}, {"date": "2026-03-09", "equity": 14600}, {"date": "2026-03-10", "equity": 14700}, {"date": "2026-03-11", "equity": 14850}, {"date": "2026-03-12", "equity": 14950}, {"date": "2026-03-13", "equity": 15100}], "weekly_pnl_history": [{"week": "2026-W09", "pnl": -38}, {"week": "2026-W10", "pnl": 517}, {"week": "2026-W11", "pnl": 139}]}, "trades": [{"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 2.76, "exit": 4.19, "pnl": 143, "pnl_pct": 51.8, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 1.76, "exit": 3.07, "pnl": 131, "pnl_pct": 74.4, "score": -4.0, "tier": "B", "result": "WIN"}, {"date": "2026-03-12", "ticker": "SPY", "type": "0DTE naked", "entry": 1.18, "exit": 0.07, "pnl": -222, "pnl_pct": -94, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-12", "ticker": "SMH", "type": "swing spread", "entry": 1.95, "exit": 2.82, "pnl": 87, "pnl_pct": 44.6, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-09", "ticker": "HOOD", "type": "CSP", "entry": 2.57, "exit": 2.84, "pnl": -27, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "SOXX", "type": "swing spread", "entry": 3.62, "exit": 3.24, "pnl": -38, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "IWM", "type": "swing spread", "entry": 1.69, "exit": 3.58, "pnl": 189, "pnl_pct": 112, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE naked", "entry": 3.44, "exit": 7.11, "pnl": 367, "pnl_pct": 107, "score": null, "tier": "A", "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE spread", "entry": 0.89, "exit": 0.5, "pnl": -39, "pnl_pct": -44, "score": null, "tier": null, "result": "LOSS"}], "watchlist": [{"ticker": "LQDA", "direction": "BEAR", "spread": "$30/$25P Apr17", "score": -5.0, "tier": "A", "trigger": "Limit $1.50-$1.60", "source": "FLOW-SCAN", "nbbo": "$1.33 mid \u2705"}, {"ticker": "PPG", "direction": "BEAR", "spread": "$100/$95P Apr17", "score": -4.0, "tier": "A", "trigger": "Limit $1.60", "source": "FLOW-SCAN", "nbbo": "$1.60 mid \u2705"}, {"ticker": "KKR", "direction": "BULL", "spread": "$90/$95C May15", "score": 3.0, "tier": "B", "trigger": "Limit $2.00-$2.10", "source": "FLOW-SCAN", "nbbo": "$3.05 mid \u2705"}, {"ticker": "BWA", "direction": "BULL", "spread": "$55/$60C May15", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "ITT", "direction": "BULL", "spread": "$185/$195C Apr17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "CIEN", "direction": "BEAR", "spread": "$320/$310P Mar27", "score": -4.0, "tier": "A", "trigger": "Verify RH Monday", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "IVZ", "direction": "BULL", "spread": "$23/$25C Jul17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "MOH", "direction": "BEAR", "spread": "$140/$130P Jun18", "score": -3.0, "tier": "B", "trigger": "Verify RH bid/ask", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "KR", "direction": "BEAR", "spread": "$72P Jun18", "score": -3.5, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}, {"ticker": "CACC", "direction": "BEAR", "spread": "$450P May15", "score": -3.0, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}], "catalysts": [{"date": "2026-03-16", "event": "NVIDIA GTC Jensen keynote", "impact": "HIGH", "tickers": ["NVDA"]}, {"date": "2026-03-18", "event": "FOMC rate decision + press conference", "impact": "HIGH", "tickers": ["SPY"]}, {"date": "2026-03-20", "event": "Quad witching (options expiry)", "impact": "MEDIUM", "tickers": ["SPY"]}, {"date": "2026-04-21", "event": "DHR earnings", "impact": "MEDIUM", "tickers": ["DHR"]}, {"date": "2026-04-29", "event": "HOOD earnings", "impact": "HIGH", "tickers": ["HOOD"]}], "market": {"spy_price": 662.29, "spy_change_pct": -1.04, "vix": 26.48, "pc_ratio": 1.09, "gex_regime": "Negative gamma \u2014 trend acceleration", "max_pain_weekly": 674, "trend": "BEARISH \u2014 below 9/21/50 EMA, above 200SMA", "vix_tier": "HIGH"}, "flow_alerts": [{"ticker": "DHR", "setup": "$200C Jun18", "premium": 690000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.5, "tier": "A", "factors": [{"name": "Flow", "value": 2}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 1}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 1}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Insider", "value": 0.5}, {"name": "Max Pain", "value": -0.5}, {"name": "Analyst", "value": 0.5}], "analysis": "$690K $200C at ask. Vol/OI 8.2x. Institutional accumulation confirmed by dark pool prints. Earnings 4/21 \u2014 spread through catalyst. Flow aligns with UBS upgrade.", "chain_rec": {"setup": "$200C Jun18 x1", "entry": "$7.10", "sl": "$3.55 (50%)", "tp1": "$10.65 (50%)", "tp2": "$12.43 (75%)", "be": "$207.10", "risk": "$710", "rr": "1:2.26", "delta": "0.42", "theta": "-$0.08", "iv_rank": "34 FAIR", "max_pain": "$195", "expiry": "Jun 18", "time_stop": "4/17 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "LQDA", "setup": "$30/$25P Apr17", "premium": 1620000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "PENDING", "score": -5.0, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -0.5}, {"name": "IV Rank", "value": -1}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$1.62M $30P at ask. Vol/OI 14.8x. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "chain_rec": {"setup": "$30/$25P Apr17", "entry": "$1.50-$1.60", "sl": "$0.80", "tp1": "$3.30", "tp2": "$4.15", "be": "$28.40", "risk": "$160", "rr": "1:2.13", "delta": "-0.38", "theta": "-$0.04", "iv_rank": "60.6 HIGH", "max_pain": "$32.50", "expiry": "Apr 17", "time_stop": "4/7 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "AXSM", "setup": "$170C May15", "premium": 850000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.0, "tier": "A", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0.5}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Analyst", "value": 0.5}], "analysis": "UBS PT $251. Multiple sweeps at ask. Pivoted from spread to naked call \u2014 RH $3.40 wide on spread. Owner override on swing budget.", "chain_rec": {"setup": "$170C May15 naked x1", "entry": "$10.00", "sl": "$5.00 (50%)", "tp1": "$15.00 (50%)", "tp2": "$17.50 (75%)", "be": "$180.00", "risk": "$1,000", "rr": "1:1.50", "delta": "0.45", "theta": "-$0.12"}, "timestamp": "2026-03-13T19:37:00+00:00"}, {"ticker": "MOH", "setup": "$140/$130P Jun18", "premium": 690000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "WATCHING", "score": -3.0, "tier": "B", "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$690K $140P at ask on green stock. Countertrend signal. BUT contradicted by $690K calls at ask same session. Lower conviction due to conflicting flow.", "timestamp": "2026-03-13T18:15:00+00:00"}, {"ticker": "MU", "setup": "Put spread TBD", "premium": 2100000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "QUEUED", "score": -5.5, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -1}, {"name": "IV Rank", "value": -0.5}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$2.1M put sweep at ask. Massive institutional positioning. Re-score in evening for strike selection.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"ticker": "KKR", "setup": "$90/$95C May15", "premium": 1600000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "PENDING", "score": 3.0, "tier": "B", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$1.6M $100C at ask. Max pain $95. R/R 1:1.56.", "chain_rec": {"setup": "$90/$95C May15", "entry": "$2.00-$2.10", "sl": "$0.95", "tp1": "$2.93", "tp2": "$3.41", "be": "$91.95", "risk": "$200", "rr": "1:1.56"}, "timestamp": "2026-03-13T20:00:00+00:00"}], "latest_0dte_score": {"total": -4.0, "direction": "BEARISH", "tier": "Tier B", "factors": [{"name": "Mkt Tide", "value": -1}, {"name": "Gamma", "value": -1.5}, {"name": "Flow", "value": -1}, {"name": "15m Candle", "value": -0.5}, {"name": "Volume", "value": 0.5}, {"name": "Event", "value": 0}, {"name": "TA Trend", "value": -0.5}, {"name": "Momentum", "value": 0}], "timestamp": "2026-03-13T16:45:00+00:00"}, "actions": [{"type": "entry", "priority": "high", "title": "LQDA $30/$25P Apr17", "ticker": "LQDA", "summary": "Tier A score -5.0. Limit $1.50-$1.60. FLOW-SCAN $1.62M $30P at ask.", "detail": "SL $0.80, TP1 $3.30, TP2 $4.15, BE $28.40. $160 risk. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "entry", "priority": "medium", "title": "KKR $90/$95C May15", "ticker": "KKR", "summary": "Tier B score +3.0. Limit $2.00-$2.10.", "detail": "$1.6M $100C at ask. Max pain $95. SL $0.95, TP1 $2.93, TP2 $3.41. $200 risk. R/R 1:1.56.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "verify", "priority": "medium", "title": "Check RH bid/ask on 3 tickers", "ticker": null, "summary": "PPG $100/$95P, CIEN $320/$310P, ITT $185/$195C \u2014 UW shows $0 NBBO", "detail": "UW has no pricing data for these low-volume strikes. Need to verify actual bid/ask quotes on Robinhood before entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "warning", "priority": "high", "title": "NVDA GTC Keynote \u2014 Sunday Mar 16", "ticker": "NVDA", "summary": "BINARY event for $180/$230C spread. Review IV crush risk.", "detail": "GTC CHECKLIST: (1) Check IV crush risk post-event, (2) If NVDA >$197.45 (BE) consider rolling up, (3) If NVDA <$170 pre-GTC evaluate cutting early. Spread only $0.25 above SL.", "timestamp": "2026-03-13T22:00:00+00:00"}, {"type": "monitor", "priority": "low", "title": "LEN thesis weakening", "ticker": "LEN", "summary": "Q1 miss. -8.0% from entry. SL at $1.19 (50%).", "detail": "Consider closing if thesis doesn't recover by 4/7 time stop. Currently $2.18 mark vs $2.37 entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "review", "priority": "low", "title": "MU put spread \u2014 re-score evening", "ticker": "MU", "summary": "Tier A score -5.5 but needs strike selection.", "detail": "$2.1M countertrend put sweep. Needs full chain rec with NBBO verification.", "timestamp": "2026-03-13T20:00:00+00:00"}], "changes": [{"type": "trade", "text": "SPY $670/$660P closed +$143 (+51.8%) \u2014 near TP1", "source": "intraday-flow", "timestamp": "2026-03-13T18:13:00+00:00"}, {"type": "trade", "text": "SPY $670/$665P 0DTE closed +$131 (+74.4%) \u2014 Score -4.0 Tier B", "source": "intraday-flow", "timestamp": "2026-03-13T18:00:00+00:00"}, {"type": "position", "text": "AXSM $170C May15 FILLED @ $10.00 \u2014 pivoted from spread (RH $3.40 wide)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "flow", "text": "DHR scored +4.5 Tier A \u2014 $690K $200C flow confirmed. FILLED $7.10", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "LQDA scored -5.0 Tier A \u2014 $1.62M $30P at ask. PENDING entry.", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "MU countertrend -5.5 Tier A \u2014 $2.1M put sweep. QUEUED for evening.", "source": "intraday-flow", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "risk", "text": "Swing budget OVER LIMIT: $2,107 deployed vs $1,500 limit (owner override for AXSM)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "market", "text": "VIX 26.48 \u2014 HIGH tier. No new long equity. Spreads + 0DTE allowed.", "source": "market-close", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "score", "text": "0DTE final score -4.0 BEARISH (Tier B). Two put spreads filled for +$274 combined.", "source": "market-open", "timestamp": "2026-03-13T16:45:00+00:00"}, {"type": "alert", "text": "NVDA spread only $0.25 above SL. GTC keynote Sunday = BINARY event.", "source": "peak-monitor", "timestamp": "2026-03-13T15:30:00+00:00"}]};
+        const D = {"meta": {"last_updated": "2026-03-14T00:15:16.813746+00:00", "updated_by": "uw_toolkit", "version": 1}, "account": {"equity": 15074, "buying_power": 33177, "margin_debt": 1863, "margin_buffer_pct": 61.76, "daily_interest": 0.25, "target": 100000, "phase": 1, "phase_name": "PROVE", "phase_next": 25000, "bp": 33177}, "positions": [{"ticker": "HOOD", "type": "shares", "size": "178sh", "entry": 103.5, "current": 73.39, "pnl": -5360, "pnl_pct": -29.1, "status": "\ud83d\udd34", "notes": "Owner override. Apr 29 earnings."}, {"ticker": "NVDA", "type": "LEAPS spread", "size": "$180/$230C Jan27", "entry": 17.45, "current": 17.98, "pnl": 53, "pnl_pct": 3.0, "status": "\ud83d\udfe2", "notes": "GTC Mon. Jensen Mar 16."}, {"ticker": "IGV", "type": "put spread", "size": "$85/$80P 4/17", "entry": 1.6, "current": 1.91, "pnl": 31, "pnl_pct": 19.4, "status": "\ud83d\udfe2", "notes": "TP1 $3.28. Best position."}, {"ticker": "DHR", "type": "naked call", "size": "$200C Jun18", "entry": 7.1, "current": 7.4, "pnl": 30, "pnl_pct": 4.2, "status": "\ud83d\udfe2", "notes": "Earnings 4/21."}, {"ticker": "LEN", "type": "call spread", "size": "$100/$110C 4/17", "entry": 2.37, "current": 1.49, "pnl": -88, "pnl_pct": -37.1, "status": "\ud83d\udd34", "notes": "Near SL $1.19."}, {"ticker": "AXSM", "type": "naked call", "size": "$170C May15", "entry": 10.0, "current": 10.6, "pnl": 60, "pnl_pct": 6.0, "status": "\ud83d\udfe1", "notes": "Flow-confirmed."}], "budgets": {"dte_weekly_limit": 600, "dte_weekly_used": 412, "dte_weekly_pnl": -91, "swing_limit": 1500, "swing_deployed": "4/4", "swing_slots_used": 4, "swing_slots_max": 4, "kill_switch": -900, "weekly_pnl": 139, "dte_used": 412, "dte_total": 600, "dte_remaining": 188, "swing_slots_total": 4, "swing_budget_used": 2107, "swing_budget_total": 1500}, "risk": {"heat_pct": 25.6, "heat_limit": 35, "heat_status": "\u2705 OK (ex-HOOD)", "net_delta": 283, "delta_bias": "LONG \u26a0\ufe0f bear trend", "vix": 26.48, "vix_tier": "HIGH", "current_streak_w": 2, "current_streak_l": 0}, "performance": {"stats": {"dte_tier_a": {"wins": 1, "losses": 0, "total_pnl": 367}, "dte_tier_b": {"wins": 1, "losses": 2, "total_pnl": -131}, "swing_tier_a": {"wins": 2, "losses": 0, "total_pnl": 276}, "swing_tier_b": {"wins": 1, "losses": 2, "total_pnl": -38}}, "equity_history": [{"date": "2026-03-03", "equity": 14200}, {"date": "2026-03-04", "equity": 14350}, {"date": "2026-03-05", "equity": 14500}, {"date": "2026-03-06", "equity": 14867}, {"date": "2026-03-07", "equity": 14750}, {"date": "2026-03-09", "equity": 14600}, {"date": "2026-03-10", "equity": 14700}, {"date": "2026-03-11", "equity": 14850}, {"date": "2026-03-12", "equity": 14950}, {"date": "2026-03-13", "equity": 15100}], "weekly_pnl_history": [{"week": "2026-W09", "pnl": -38}, {"week": "2026-W10", "pnl": 517}, {"week": "2026-W11", "pnl": 139}]}, "trades": [{"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 2.76, "exit": 4.19, "pnl": 143, "pnl_pct": 51.8, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-13", "ticker": "SPY", "type": "0DTE spread", "entry": 1.76, "exit": 3.07, "pnl": 131, "pnl_pct": 74.4, "score": -4.0, "tier": "B", "result": "WIN"}, {"date": "2026-03-12", "ticker": "SPY", "type": "0DTE naked", "entry": 1.18, "exit": 0.07, "pnl": -222, "pnl_pct": -94, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-12", "ticker": "SMH", "type": "swing spread", "entry": 1.95, "exit": 2.82, "pnl": 87, "pnl_pct": 44.6, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-09", "ticker": "HOOD", "type": "CSP", "entry": 2.57, "exit": 2.84, "pnl": -27, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "SOXX", "type": "swing spread", "entry": 3.62, "exit": 3.24, "pnl": -38, "pnl_pct": -10.5, "score": null, "tier": null, "result": "LOSS"}, {"date": "2026-03-09", "ticker": "IWM", "type": "swing spread", "entry": 1.69, "exit": 3.58, "pnl": 189, "pnl_pct": 112, "score": null, "tier": null, "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE naked", "entry": 3.44, "exit": 7.11, "pnl": 367, "pnl_pct": 107, "score": null, "tier": "A", "result": "WIN"}, {"date": "2026-03-06", "ticker": "SPY", "type": "0DTE spread", "entry": 0.89, "exit": 0.5, "pnl": -39, "pnl_pct": -44, "score": null, "tier": null, "result": "LOSS"}], "watchlist": [{"ticker": "LQDA", "direction": "BEAR", "spread": "$30/$25P Apr17", "score": -5.0, "tier": "A", "trigger": "Limit $1.50-$1.60", "source": "FLOW-SCAN", "nbbo": "$1.33 mid \u2705"}, {"ticker": "PPG", "direction": "BEAR", "spread": "$100/$95P Apr17", "score": -4.0, "tier": "A", "trigger": "Limit $1.60", "source": "FLOW-SCAN", "nbbo": "$1.60 mid \u2705"}, {"ticker": "KKR", "direction": "BULL", "spread": "$90/$95C May15", "score": 3.0, "tier": "B", "trigger": "Limit $2.00-$2.10", "source": "FLOW-SCAN", "nbbo": "$3.05 mid \u2705"}, {"ticker": "BWA", "direction": "BULL", "spread": "$55/$60C May15", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "ITT", "direction": "BULL", "spread": "$185/$195C Apr17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "CIEN", "direction": "BEAR", "spread": "$320/$310P Mar27", "score": -4.0, "tier": "A", "trigger": "Verify RH Monday", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "IVZ", "direction": "BULL", "spread": "$23/$25C Jul17", "score": 3.5, "tier": "B", "trigger": "Verify RH NBBO", "source": "FLOW-SCAN", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "MOH", "direction": "BEAR", "spread": "$140/$130P Jun18", "score": -3.0, "tier": "B", "trigger": "Verify RH bid/ask", "source": "COUNTERTREND", "nbbo": "UW $0 \u2014 verify RH"}, {"ticker": "KR", "direction": "BEAR", "spread": "$72P Jun18", "score": -3.5, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}, {"ticker": "CACC", "direction": "BEAR", "spread": "$450P May15", "score": -3.0, "tier": "B", "trigger": "Limit TBD", "source": "FLOW-SCAN", "nbbo": "TBD"}], "catalysts": [{"date": "2026-03-16", "event": "NVIDIA GTC Jensen keynote", "impact": "HIGH", "tickers": ["NVDA"]}, {"date": "2026-03-18", "event": "FOMC rate decision + press conference", "impact": "HIGH", "tickers": ["SPY"]}, {"date": "2026-03-20", "event": "Quad witching (options expiry)", "impact": "MEDIUM", "tickers": ["SPY"]}, {"date": "2026-04-21", "event": "DHR earnings", "impact": "MEDIUM", "tickers": ["DHR"]}, {"date": "2026-04-29", "event": "HOOD earnings", "impact": "HIGH", "tickers": ["HOOD"]}], "market": {"spy_price": 662.29, "spy_change_pct": -1.04, "vix": 26.48, "pc_ratio": 1.09, "gex_regime": "Negative gamma \u2014 trend acceleration", "max_pain_weekly": 674, "trend": "BEARISH \u2014 below 9/21/50 EMA, above 200SMA", "vix_tier": "HIGH"}, "flow_alerts": [{"ticker": "DHR", "setup": "$200C Jun18", "premium": 690000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.5, "tier": "A", "factors": [{"name": "Flow", "value": 2}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 1}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 1}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Insider", "value": 0.5}, {"name": "Max Pain", "value": -0.5}, {"name": "Analyst", "value": 0.5}], "analysis": "$690K $200C at ask. Vol/OI 8.2x. Institutional accumulation confirmed by dark pool prints. Earnings 4/21 \u2014 spread through catalyst. Flow aligns with UBS upgrade.", "chain_rec": {"setup": "$200C Jun18 x1", "entry": "$7.10", "sl": "$3.55 (50%)", "tp1": "$10.65 (50%)", "tp2": "$12.43 (75%)", "be": "$207.10", "risk": "$710", "rr": "1:2.26", "delta": "0.42", "theta": "-$0.08", "iv_rank": "34 FAIR", "max_pain": "$195", "expiry": "Jun 18", "time_stop": "4/17 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "LQDA", "setup": "$30/$25P Apr17", "premium": 1620000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "PENDING", "score": -5.0, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -0.5}, {"name": "IV Rank", "value": -1}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$1.62M $30P at ask. Vol/OI 14.8x. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "chain_rec": {"setup": "$30/$25P Apr17", "entry": "$1.50-$1.60", "sl": "$0.80", "tp1": "$3.30", "tp2": "$4.15", "be": "$28.40", "risk": "$160", "rr": "1:2.13", "delta": "-0.38", "theta": "-$0.04", "iv_rank": "60.6 HIGH", "max_pain": "$32.50", "expiry": "Apr 17", "time_stop": "4/7 review"}, "timestamp": "2026-03-13T19:30:00+00:00"}, {"ticker": "AXSM", "setup": "$170C May15", "premium": 850000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "FILLED", "score": 4.0, "tier": "A", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0.5}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0.5}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [{"name": "Analyst", "value": 0.5}], "analysis": "UBS PT $251. Multiple sweeps at ask. Pivoted from spread to naked call \u2014 RH $3.40 wide on spread. Owner override on swing budget.", "chain_rec": {"setup": "$170C May15 naked x1", "entry": "$10.00", "sl": "$5.00 (50%)", "tp1": "$15.00 (50%)", "tp2": "$17.50 (75%)", "be": "$180.00", "risk": "$1,000", "rr": "1:1.50", "delta": "0.45", "theta": "-$0.12"}, "timestamp": "2026-03-13T19:37:00+00:00"}, {"ticker": "MOH", "setup": "$140/$130P Jun18", "premium": 690000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "WATCHING", "score": -3.0, "tier": "B", "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$690K $140P at ask on green stock. Countertrend signal. BUT contradicted by $690K calls at ask same session. Lower conviction due to conflicting flow.", "timestamp": "2026-03-13T18:15:00+00:00"}, {"ticker": "MU", "setup": "Put spread TBD", "premium": 2100000, "direction": "BEARISH", "source": "COUNTERTREND", "status": "QUEUED", "score": -5.5, "tier": "A", "factors": [{"name": "Flow", "value": -2}, {"name": "Dark Pool", "value": -1}, {"name": "IV Rank", "value": -0.5}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": -0.5}], "modifiers": [], "analysis": "$2.1M put sweep at ask. Massive institutional positioning. Re-score in evening for strike selection.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"ticker": "KKR", "setup": "$90/$95C May15", "premium": 1600000, "direction": "BULLISH", "source": "FLOW-SCAN", "status": "PENDING", "score": 3.0, "tier": "B", "factors": [{"name": "Flow", "value": 1.5}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0.5}, {"name": "TA Trend", "value": 0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$1.6M $100C at ask. Max pain $95. R/R 1:1.56.", "chain_rec": {"setup": "$90/$95C May15", "entry": "$2.00-$2.10", "sl": "$0.95", "tp1": "$2.93", "tp2": "$3.41", "be": "$91.95", "risk": "$200", "rr": "1:1.56"}, "timestamp": "2026-03-13T20:00:00+00:00"}, {"ticker": "TTAN", "setup": "$45P May15", "premium": 680000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "SKIPPED", "score": -2.0, "tier": null, "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": -0.5}, {"name": "OI Change", "value": 0}, {"name": "TA Trend", "value": 0}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$680K $45P sweep. Micro-cap with thin options. Score below \u00b13 threshold.", "skip_reason": "Score -2.0 below \u00b13 threshold. Low liquidity micro-cap \u2014 bid/ask spread >25% of premium.", "timestamp": "2026-03-13T18:45:00+00:00"}, {"ticker": "IE", "setup": "$30/$25P Apr17", "premium": 520000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "SKIPPED", "score": -1.5, "tier": null, "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0}, {"name": "TA Trend", "value": -0.5}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$520K $30P at ask. Stale flow \u2014 underlying moved 4.2% since alert. Minimal confirming signals.", "skip_reason": "Score -1.5 below \u00b13 threshold. Stale flow (4.2% price divergence since alert). No confirming dark pool or OI buildup.", "timestamp": "2026-03-13T18:30:00+00:00"}, {"ticker": "MHK", "setup": "$120P Jun18", "premium": 750000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "SKIPPED", "score": -2.5, "tier": null, "factors": [{"name": "Flow", "value": -1.5}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": -0.5}, {"name": "TA Trend", "value": 0}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": -0.5}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$750K $120P sweep. Housing sector weak but no catalyst proximity. Near threshold but missing confirming factors.", "skip_reason": "Score -2.5 \u2014 just below \u00b13 threshold. No catalyst, no dark pool confirmation, flat skew. Close to actionable \u2014 re-evaluate if new flow appears.", "timestamp": "2026-03-13T17:15:00+00:00"}, {"ticker": "QGEN", "setup": "$40/$35P May15", "premium": 510000, "direction": "BEARISH", "source": "FLOW-SCAN", "status": "SKIPPED", "score": -1.0, "tier": null, "factors": [{"name": "Flow", "value": -1}, {"name": "Dark Pool", "value": 0}, {"name": "IV Rank", "value": 0}, {"name": "OI Change", "value": 0}, {"name": "TA Trend", "value": 0}, {"name": "Catalyst", "value": 0}, {"name": "Sector", "value": 0}, {"name": "Skew", "value": 0}], "modifiers": [], "analysis": "$510K $40P. Single alert with no confirming signals across any factor. Likely hedge on existing position.", "skip_reason": "Score -1.0 \u2014 well below threshold. Single alert, no confirming flow, dark pool, OI, or TA signals. Probable hedge.", "timestamp": "2026-03-13T17:00:00+00:00"}], "latest_0dte_score": {"total": -4.0, "direction": "BEARISH", "tier": "Tier B", "factors": [{"name": "Mkt Tide", "value": -1}, {"name": "Gamma", "value": -1.5}, {"name": "Flow", "value": -1}, {"name": "15m Candle", "value": -0.5}, {"name": "Volume", "value": 0.5}, {"name": "Event", "value": 0}, {"name": "TA Trend", "value": -0.5}, {"name": "Momentum", "value": 0}], "timestamp": "2026-03-13T16:45:00+00:00"}, "actions": [{"type": "entry", "priority": "high", "title": "LQDA $30/$25P Apr17", "ticker": "LQDA", "summary": "Tier A score -5.0. Limit $1.50-$1.60. FLOW-SCAN $1.62M $30P at ask.", "detail": "SL $0.80, TP1 $3.30, TP2 $4.15, BE $28.40. $160 risk. IVR 60.6. IV 175%. Oppenheimer SELL PT $19. Expensive IV but massive institutional conviction.", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "entry", "priority": "medium", "title": "KKR $90/$95C May15", "ticker": "KKR", "summary": "Tier B score +3.0. Limit $2.00-$2.10.", "detail": "$1.6M $100C at ask. Max pain $95. SL $0.95, TP1 $2.93, TP2 $3.41. $200 risk. R/R 1:1.56.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "verify", "priority": "medium", "title": "Check RH bid/ask on 3 tickers", "ticker": null, "summary": "PPG $100/$95P, CIEN $320/$310P, ITT $185/$195C \u2014 UW shows $0 NBBO", "detail": "UW has no pricing data for these low-volume strikes. Need to verify actual bid/ask quotes on Robinhood before entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "warning", "priority": "high", "title": "NVDA GTC Keynote \u2014 Sunday Mar 16", "ticker": "NVDA", "summary": "BINARY event for $180/$230C spread. Review IV crush risk.", "detail": "GTC CHECKLIST: (1) Check IV crush risk post-event, (2) If NVDA >$197.45 (BE) consider rolling up, (3) If NVDA <$170 pre-GTC evaluate cutting early. Spread only $0.25 above SL.", "timestamp": "2026-03-13T22:00:00+00:00"}, {"type": "monitor", "priority": "low", "title": "LEN thesis weakening", "ticker": "LEN", "summary": "Q1 miss. -8.0% from entry. SL at $1.19 (50%).", "detail": "Consider closing if thesis doesn't recover by 4/7 time stop. Currently $2.18 mark vs $2.37 entry.", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "review", "priority": "low", "title": "MU put spread \u2014 re-score evening", "ticker": "MU", "summary": "Tier A score -5.5 but needs strike selection.", "detail": "$2.1M countertrend put sweep. Needs full chain rec with NBBO verification.", "timestamp": "2026-03-13T20:00:00+00:00"}], "changes": [{"type": "trade", "text": "SPY $670/$660P closed +$143 (+51.8%) \u2014 near TP1", "source": "intraday-flow", "timestamp": "2026-03-13T18:13:00+00:00"}, {"type": "trade", "text": "SPY $670/$665P 0DTE closed +$131 (+74.4%) \u2014 Score -4.0 Tier B", "source": "intraday-flow", "timestamp": "2026-03-13T18:00:00+00:00"}, {"type": "position", "text": "AXSM $170C May15 FILLED @ $10.00 \u2014 pivoted from spread (RH $3.40 wide)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "flow", "text": "DHR scored +4.5 Tier A \u2014 $690K $200C flow confirmed. FILLED $7.10", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "LQDA scored -5.0 Tier A \u2014 $1.62M $30P at ask. PENDING entry.", "source": "intraday-flow", "timestamp": "2026-03-13T19:30:00+00:00"}, {"type": "flow", "text": "MU countertrend -5.5 Tier A \u2014 $2.1M put sweep. QUEUED for evening.", "source": "intraday-flow", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "risk", "text": "Swing budget OVER LIMIT: $2,107 deployed vs $1,500 limit (owner override for AXSM)", "source": "intraday-flow", "timestamp": "2026-03-13T19:37:00+00:00"}, {"type": "market", "text": "VIX 26.48 \u2014 HIGH tier. No new long equity. Spreads + 0DTE allowed.", "source": "market-close", "timestamp": "2026-03-13T20:00:00+00:00"}, {"type": "score", "text": "0DTE final score -4.0 BEARISH (Tier B). Two put spreads filled for +$274 combined.", "source": "market-open", "timestamp": "2026-03-13T16:45:00+00:00"}, {"type": "alert", "text": "NVDA spread only $0.25 above SL. GTC keynote Sunday = BINARY event.", "source": "peak-monitor", "timestamp": "2026-03-13T15:30:00+00:00"}], "news": [{"headline": "U.S.-Iran tensions escalate \u2014 Iranian boats hit 2 tankers", "sentiment": "bearish", "is_major": true, "tickers": ["USO", "XLE"], "timestamp": "2026-03-13T14:00:00+00:00"}, {"headline": "NVDA GTC Conference kicks off Sunday \u2014 Jensen keynote scheduled", "sentiment": "bullish", "is_major": true, "tickers": ["NVDA"], "timestamp": "2026-03-13T18:00:00+00:00"}, {"headline": "Fed holds rates steady, signals patience on cuts", "sentiment": "neutral", "is_major": true, "tickers": ["SPY"], "timestamp": "2026-03-12T19:00:00+00:00"}, {"headline": "LEN Q1 earnings miss \u2014 revenue down 3% YoY", "sentiment": "bearish", "is_major": false, "tickers": ["LEN"], "timestamp": "2026-03-13T12:00:00+00:00"}, {"headline": "UBS raises AXSM PT to $251 \u2014 strong FDA pipeline", "sentiment": "bullish", "is_major": false, "tickers": ["AXSM"], "timestamp": "2026-03-13T15:00:00+00:00"}, {"headline": "Crude oil spikes to $89.82 on geopolitical risk", "sentiment": "bearish", "is_major": true, "tickers": ["USO", "XLE"], "timestamp": "2026-03-13T16:00:00+00:00"}], "ta_levels": {"SPY": {"price": 662.29, "9ema": 660.5, "21ema": 665.8, "50sma": 672.4, "200sma": 648.2, "vwap": 663.1, "rsi": 43.4, "macd_signal": "BEARISH", "trend": "BELOW 9/21 EMA \u2014 bear trend", "support": [658, 648, 640], "resistance": [666, 672, 680]}, "NVDA": {"price": 182.59, "50sma": 195.2, "200sma": 168.5, "rsi": 47.2, "trend": "Above 200SMA, below 50SMA \u2014 consolidation", "support": [175, 168], "resistance": [190, 197]}}, "market_regime": {"trend": "BEARISH", "vix_tier": "HIGH", "gex_regime": "Negative gamma \u2014 trend acceleration likely", "pc_ratio_signal": "Put-heavy (1.08) \u2014 bearish positioning", "max_pain_weekly": 680, "max_pain_distance": "+2.7% above spot", "nope": -1.2, "nope_signal": "Slightly negative \u2014 mild put pressure", "sector_leaders": ["Energy +1.2%", "Utilities +0.8%"], "sector_laggards": ["Tech -1.8%", "Consumer Disc -1.5%"], "yield_curve": "Steepening \u2014 risk-on signal but geopolitical offset", "short_vol_ratio": 52, "total_put_premium": 4200000000, "total_call_premium": 3900000000}, "daily_summary": {"text": "Bear trend intact. SPY below all short-term EMAs. VIX 26.48 HIGH tier \u2014 no new long equity allowed. Two 0DTE put spreads closed profitably (+$274 combined). AXSM and LEN swings entered. Portfolio at 4/4 swing slots (owner override on budget). NVDA GTC Sunday is the next binary catalyst. Net delta +283 LONG bias in bear trend \u2014 monitor closely.", "task_log": [{"task": "pre-dawn-scan", "time": "2:00 AM", "status": "completed", "summary": "Macro context set. VIX elevated. Iran tensions."}, {"task": "spy-premarket", "time": "5:30 AM", "status": "completed", "summary": "SPY gap down -0.3%. Score -4.0 BEARISH Tier B."}, {"task": "market-open", "time": "6:45 AM", "status": "completed", "summary": "9:45 candle RED. Confirmed bearish. Two 0DTE spreads entered."}, {"task": "peak-monitor", "time": "7:00-8:00 AM", "status": "completed", "summary": "SL/TP monitoring. NVDA $0.25 above SL flagged."}, {"task": "intraday-flow", "time": "7:00 AM-12:55 PM", "status": "completed", "summary": "10 alerts scored. DHR +4.5 Tier A filled. AXSM +4.0 filled. 4 skipped."}, {"task": "market-close", "time": "1:00 PM", "status": "completed", "summary": "EOD P&L +$139 week. Countertrend scan. Watchlist updated."}], "timestamp": "2026-03-13T22:00:00+00:00"}};
 
         const TABS = ['actions', 'overview', 'flow', 'positions', 'performance', 'watchlist'];
         let currentTab = 'actions';
@@ -1328,91 +1528,184 @@
             document.getElementById('activityFeed').innerHTML = html || '<p style="color: #6677aa; font-size: 12px;">No recent activity</p>';
         }
 
+        function buildNewsHtml() {
+            var news = D.news || [];
+            var h = '';
+            for (var i = 0; i < Math.min(news.length, 8); i++) {
+                var n = news[i];
+                var ts = '';
+                if (n.timestamp) {
+                    var d = new Date(n.timestamp);
+                    ts = d.toLocaleString('en-US', {hour:'numeric',minute:'2-digit',hour12:true});
+                }
+                var majorClass = n.is_major ? ' major' : '';
+                h += '<div class="news-item">'
+                    + '<div class="news-sentiment ' + (n.sentiment || 'neutral') + '"></div>'
+                    + '<span class="news-headline' + majorClass + '">' + n.headline + '</span>'
+                    + '<span class="news-tickers">' + (n.tickers || []).join(', ') + '</span>'
+                    + '<span class="news-time">' + ts + '</span>'
+                    + '</div>';
+            }
+            return h || '<div style="color:#4a5a7a;font-size:11px;">No news</div>';
+        }
+
+        function buildTaLevelsHtml() {
+            var ta = D.ta_levels || {};
+            var spy = ta.SPY || {};
+            if (!spy.price) return '<div style="color:#4a5a7a;font-size:11px;">No TA data</div>';
+
+            var h = '';
+            var levels = [
+                ['VWAP', spy.vwap], ['9 EMA', spy['9ema']], ['21 EMA', spy['21ema']],
+                ['50 SMA', spy['50sma']], ['200 SMA', spy['200sma']], ['RSI(14)', spy.rsi],
+                ['MACD', spy.macd_signal]
+            ];
+            for (var i = 0; i < levels.length; i++) {
+                if (levels[i][1] !== undefined) {
+                    var val = levels[i][1];
+                    var valClass = '';
+                    if (typeof val === 'number' && levels[i][0] !== 'RSI(14)') {
+                        valClass = val > spy.price ? ' above-price' : ' below-price';
+                    }
+                    h += '<div class="ta-row"><span class="ta-label">' + levels[i][0] + '</span>'
+                        + '<span class="ta-value' + valClass + '">' + val + '</span></div>';
+                }
+            }
+
+            // Support/resistance tags
+            if (spy.support) {
+                h += '<div style="margin-top:6px;"><span style="font-size:9px;color:#4a6a9a;text-transform:uppercase;letter-spacing:1px;">Support</span><div class="level-tags">';
+                for (var i = 0; i < spy.support.length; i++) {
+                    h += '<span class="level-tag support">$' + spy.support[i] + '</span>';
+                }
+                h += '</div></div>';
+            }
+            if (spy.resistance) {
+                h += '<div style="margin-top:4px;"><span style="font-size:9px;color:#4a6a9a;text-transform:uppercase;letter-spacing:1px;">Resistance</span><div class="level-tags">';
+                for (var i = 0; i < spy.resistance.length; i++) {
+                    h += '<span class="level-tag resistance">$' + spy.resistance[i] + '</span>';
+                }
+                h += '</div></div>';
+            }
+
+            h += '<div style="font-size:10px;color:#6677aa;margin-top:6px;border-top:1px solid #1a2540;padding-top:4px;">' + (spy.trend || '') + '</div>';
+            return h;
+        }
+
+        function buildMarketRegimeHtml() {
+            var mr = D.market_regime || {};
+            var fields = [
+                ['Trend', mr.trend], ['VIX Tier', D.market?.vix_tier],
+                ['GEX Regime', mr.gex_regime], ['P/C Signal', mr.pc_ratio_signal],
+                ['Max Pain', mr.max_pain_weekly ? '$' + mr.max_pain_weekly + ' (' + (mr.max_pain_distance || '') + ')' : null],
+                ['NOPE', mr.nope !== undefined ? mr.nope + ' — ' + (mr.nope_signal || '') : null],
+                ['Short Vol', mr.short_vol_ratio ? mr.short_vol_ratio + '%' : null],
+                ['Yield Curve', mr.yield_curve]
+            ];
+            var h = '';
+            for (var i = 0; i < fields.length; i++) {
+                if (fields[i][1]) {
+                    h += '<div class="regime-row"><span class="regime-label">' + fields[i][0] + '</span>'
+                        + '<span class="regime-value">' + fields[i][1] + '</span></div>';
+                }
+            }
+            // Sector leaders/laggards
+            var leaders = mr.sector_leaders || [];
+            var laggards = mr.sector_laggards || [];
+            if (leaders.length || laggards.length) {
+                h += '<div style="margin-top:6px;border-top:1px solid #1a2540;padding-top:4px;">';
+                for (var i = 0; i < leaders.length; i++) {
+                    h += '<span class="sector-tag green">' + leaders[i] + '</span>';
+                }
+                for (var i = 0; i < laggards.length; i++) {
+                    h += '<span class="sector-tag red">' + laggards[i] + '</span>';
+                }
+                h += '</div>';
+            }
+            return h || '<div style="color:#4a5a7a;font-size:11px;">No regime data</div>';
+        }
+
+        function buildTaskLogHtml() {
+            var log = (D.daily_summary || {}).task_log || [];
+            var h = '';
+            for (var i = 0; i < log.length; i++) {
+                var t = log[i];
+                var dotClass = (t.status || 'pending');
+                h += '<div class="task-log-item">'
+                    + '<div class="task-status-dot ' + dotClass + '"></div>'
+                    + '<span class="task-time">' + (t.time || '') + '</span>'
+                    + '<span class="task-name">' + (t.task || '') + '</span>'
+                    + '<span class="task-summary">' + (t.summary || '') + '</span>'
+                    + '</div>';
+            }
+            return h || '<div style="color:#4a5a7a;font-size:11px;">No tasks logged today</div>';
+        }
+
         function renderOverviewTab() {
-            const heat = D.risk?.heat_pct || 0;
-            const margin = D.account?.margin_buffer_pct || 0;
-            const dte = D.budgets?.dte_weekly_used || 0;
-            const dteLimit = D.budgets?.dte_weekly_limit || 600;
+            var heat = D.risk?.heat_pct || 0;
+            var margin = D.account?.margin_buffer_pct || 0;
+            var dte = D.budgets?.dte_weekly_used || 0;
+            var dteLimit = D.budgets?.dte_weekly_limit || 600;
+            var delta = D.risk?.net_delta || 0;
 
-            const html = `
-                <div class="chart-container col-span-full">
-                    <canvas id="equityChart"></canvas>
-                </div>
+            var newsHtml = buildNewsHtml();
+            var taHtml = buildTaLevelsHtml();
+            var regimeHtml = buildMarketRegimeHtml();
+            var taskLogHtml = buildTaskLogHtml();
+            var dailySummary = (D.daily_summary || {}).text || 'No daily summary available.';
+            var catalystHtml = '';
+            var cats = D.catalysts || [];
+            for (var i = 0; i < Math.min(cats.length, 4); i++) {
+                var c = cats[i];
+                catalystHtml += '<div style="padding:4px 0;border-top:1px solid #1a2540;">'
+                    + '<span style="color:#8899bb;">' + (c.ticker || '') + '</span>'
+                    + '<span style="float:right;font-family:JetBrains Mono;font-size:11px;">' + (c.date || '') + '</span>'
+                    + '<div style="font-size:10px;margin-top:2px;color:#6677aa;">' + (c.event || '') + '</div>'
+                    + '</div>';
+            }
 
-                <div class="gauges-row">
-                    <div class="gauge">
-                        <canvas id="heatGauge" class="gauge-canvas"></canvas>
-                        <div class="gauge-value">${heat.toFixed(1)}%</div>
-                        <div class="gauge-label">Heat</div>
-                    </div>
-                    <div class="gauge">
-                        <canvas id="marginGauge" class="gauge-canvas"></canvas>
-                        <div class="gauge-value">${margin.toFixed(1)}%</div>
-                        <div class="gauge-label">Margin Buffer</div>
-                    </div>
-                    <div class="gauge">
-                        <canvas id="dteGauge" class="gauge-canvas"></canvas>
-                        <div class="gauge-value">${dte}/${dteLimit}</div>
-                        <div class="gauge-label">0DTE Budget</div>
-                    </div>
-                    <div class="gauge">
-                        <canvas id="deltaGauge" class="gauge-canvas"></canvas>
-                        <div class="gauge-value">${(D.risk?.net_delta || 0).toFixed(0)}</div>
-                        <div class="gauge-label">Net Δ</div>
-                    </div>
-                </div>
+            var html = '<div class="chart-container col-span-full"><canvas id="equityChart"></canvas></div>'
+                + '<div class="gauges-row">'
+                + '<div class="gauge"><canvas id="heatGauge" class="gauge-canvas"></canvas><div class="gauge-value">' + heat.toFixed(1) + '%</div><div class="gauge-label">Heat</div></div>'
+                + '<div class="gauge"><canvas id="marginGauge" class="gauge-canvas"></canvas><div class="gauge-value">' + margin.toFixed(1) + '%</div><div class="gauge-label">Margin Buffer</div></div>'
+                + '<div class="gauge"><canvas id="dteGauge" class="gauge-canvas"></canvas><div class="gauge-value">' + dte + '/' + dteLimit + '</div><div class="gauge-label">0DTE Budget</div></div>'
+                + '<div class="gauge"><canvas id="deltaGauge" class="gauge-canvas"></canvas><div class="gauge-value">' + delta.toFixed(0) + '</div><div class="gauge-label">Net \u0394</div></div>'
+                + '</div>'
 
-                <div class="grid-2col">
-                    <div class="card">
-                        <div class="card-title">Risk Dashboard</div>
-                        <div style="font-size: 12px; color: #8899bb;">
-                            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1a2540;">
-                                <span>VIX Tier</span>
-                                <span style="color: #00e5ff; font-weight: 600;">${D.market?.vix_tier || 'NORMAL'}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1a2540;">
-                                <span>Delta Bias</span>
-                                <span style="color: #00e5ff; font-weight: 600;">${D.risk?.delta_bias || 'NEUTRAL'}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1a2540;">
-                                <span>GEX Regime</span>
-                                <span style="color: #00e5ff; font-weight: 600;">${D.market?.gex_regime || 'NEUTRAL'}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 6px 0;">
-                                <span>Heat Status</span>
-                                <span style="color: #00e5ff; font-weight: 600;">${D.risk?.heat_status || 'OK'}</span>
-                            </div>
-                        </div>
-                    </div>
+                // Row 1: Daily Summary (full width)
+                + '<div class="card col-span-full">'
+                + '<div class="card-title">Daily Summary</div>'
+                + '<div class="daily-summary-text">' + dailySummary + '</div>'
+                + '</div>'
 
-                    <div class="card">
-                        <div class="card-title">Phase & Catalysts</div>
-                        <div style="font-size: 12px; color: #8899bb; margin-bottom: 12px;">
-                            <div style="padding: 6px 0;">
-                                <span style="color: #8899bb;">Current Phase:</span>
-                                <div style="color: #00e5ff; font-weight: 600; margin-top: 2px;">${D.account?.phase_name || 'Phase 1'}</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 11px; color: #6677aa;">
-                            ${(D.catalysts || []).slice(0, 4).map(c => `
-                                <div style="padding: 4px 0; border-top: 1px solid #1a2540;">
-                                    <span style="color: #8899bb;">${c.ticker}</span>
-                                    <span style="float: right; font-family: JetBrains Mono;">${c.date}</span>
-                                    <div style="font-size: 10px; margin-top: 2px;">${c.event}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
+                // Row 2: Market Regime + SPY TA Levels
+                + '<div class="grid-2col">'
+                + '<div class="card"><div class="card-title">Market Regime</div>' + regimeHtml + '</div>'
+                + '<div class="card"><div class="card-title">SPY Technical Levels</div>' + taHtml + '</div>'
+                + '</div>'
+
+                // Row 3: News Feed + Phase & Catalysts
+                + '<div class="grid-2col">'
+                + '<div class="card"><div class="card-title">News Feed</div>' + newsHtml + '</div>'
+                + '<div class="card"><div class="card-title">Phase & Catalysts</div>'
+                + '<div style="font-size:12px;color:#8899bb;margin-bottom:8px;"><span>Current Phase:</span> <span style="color:#00e5ff;font-weight:600;">' + (D.account?.phase_name || 'Phase 1') + '</span>'
+                + ' <span style="color:#4a5a7a;font-size:10px;">(Next: $' + formatNumber(D.account?.phase_next || 25000) + ')</span></div>'
+                + '<div style="font-size:11px;color:#6677aa;">' + catalystHtml + '</div></div>'
+                + '</div>'
+
+                // Row 4: Task Log (full width)
+                + '<div class="card col-span-full">'
+                + '<div class="card-title">Today\'s Task Log</div>'
+                + taskLogHtml
+                + '</div>';
 
             document.getElementById('overviewTab').innerHTML = html;
 
-            setTimeout(() => {
+            setTimeout(function() {
                 drawHalfDonutGauge('heatGauge', heat, 100, '#ff4560');
                 drawHalfDonutGauge('marginGauge', margin, 100, '#00e396');
                 drawHalfDonutGauge('dteGauge', (dte / dteLimit) * 100, 100, '#feb019');
-                drawHalfDonutGauge('deltaGauge', Math.abs(D.risk?.net_delta || 0), 100, '#008ffb');
+                drawHalfDonutGauge('deltaGauge', Math.abs(delta), 100, '#008ffb');
                 renderEquityChart();
             }, 100);
         }
@@ -1476,41 +1769,201 @@
             });
         }
 
-        function renderFlowTab() {
-            const flows = D.flow_alerts || [];
-            const html = flows.slice(0, 12).map(flow => `
-                <div class="flow-card" onclick="this.classList.toggle('expanded')">
-                    <div class="flow-header">
-                        <span class="flow-ticker">${flow.ticker}</span>
-                        <span class="flow-direction ${flow.direction === 'BULLISH' ? 'bullish' : 'bearish'}">${flow.direction || 'N/A'}</span>
-                    </div>
-                    <div class="flow-setup">${flow.setup || ''}</div>
-                    <div class="flow-bar"></div>
-                    <div class="flow-meta">
-                        <span>Premium: $${formatNumber(flow.premium || 0)}</span>
-                        <span>Score: ${flow.score > 0 ? '+' : ''}${flow.score || 0}</span>
-                    </div>
-                    <div class="flow-analysis">
-                        <div class="factor-grid">
-                            ${(flow.factors || []).slice(0, 8).map(f => `
-                                <div class="factor-item">
-                                    <span class="factor-label">${f.name}</span>
-                                    <span class="factor-value">${f.value > 0 ? '+' : ''}${f.value}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div style="font-size: 11px; color: #6677aa; padding: 8px 0; border-top: 1px solid #1a2540;">
-                            ${flow.analysis || 'Analysis pending'}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        var _flowFilter = 'ALL';
 
-            document.getElementById('flowTab').innerHTML = `
-                <div class="grid-2col">
-                    ${html}
-                </div>
-            ` || '<p style="color: #6677aa;">No flow alerts</p>';
+        function buildFactorHtml(factors) {
+            var h = '';
+            for (var i = 0; i < Math.min((factors || []).length, 8); i++) {
+                var f = factors[i];
+                var vc = f.value > 0 ? 'positive' : (f.value < 0 ? 'negative' : 'neutral');
+                h += '<div class="factor-item ' + vc + '">'
+                    + '<span class="factor-label">' + f.name + '</span>'
+                    + '<span class="factor-value ' + vc + '">' + (f.value > 0 ? '+' : '') + f.value + '</span>'
+                    + '</div>';
+            }
+            return h;
+        }
+
+        function buildModifierHtml(modifiers) {
+            var h = '';
+            for (var i = 0; i < (modifiers || []).length; i++) {
+                var m = modifiers[i];
+                var mc = m.value > 0 ? 'positive' : 'negative';
+                h += '<span class="modifier-tag ' + mc + '">'
+                    + m.name + ': ' + (m.value > 0 ? '+' : '') + m.value
+                    + '</span>';
+            }
+            return h;
+        }
+
+        function buildChainRecHtml(cr) {
+            if (!cr) return '';
+            var fields = [
+                ['Entry', cr.entry], ['SL', cr.sl], ['TP1', cr.tp1],
+                ['TP2', cr.tp2], ['BE', cr.be], ['Risk', cr.risk],
+                ['R/R', cr.rr], ['Delta', cr.delta], ['Theta', cr.theta],
+                ['IV Rank', cr.iv_rank], ['Max Pain', cr.max_pain], ['Expiry', cr.expiry]
+            ];
+            var h = '<div class="flow-section-title">Chain Rec — ' + (cr.setup || '') + '</div><div class="chain-rec-grid">';
+            for (var i = 0; i < fields.length; i++) {
+                if (fields[i][1]) {
+                    h += '<div class="chain-rec-item">'
+                        + '<div class="chain-rec-label">' + fields[i][0] + '</div>'
+                        + '<div class="chain-rec-value">' + fields[i][1] + '</div>'
+                        + '</div>';
+                }
+            }
+            h += '</div>';
+            if (cr.time_stop) {
+                h += '<div style="font-size:10px;color:#6677aa;margin-bottom:4px;">Time stop: ' + cr.time_stop + '</div>';
+            }
+            return h;
+        }
+
+        function buildFlowCard(flow) {
+            var status = (flow.status || 'PENDING').toUpperCase();
+            var statusClass = status.toLowerCase().replace(/\s/g, '');
+            var tierClass = flow.tier === 'A' ? 'tier-a' : (flow.tier === 'B' ? 'tier-b' : 'tier-skip');
+            var tierLabel = flow.tier === 'A' ? 'TIER A' : (flow.tier === 'B' ? 'TIER B' : 'SKIP');
+            var dirClass = flow.direction === 'BULLISH' ? 'bullish' : 'bearish';
+            var scoreClass = flow.score > 0 ? 'positive' : 'negative';
+            var absScore = Math.abs(flow.score || 0);
+            var scoreStr = (flow.score > 0 ? '+' : '') + (flow.score || 0);
+            var statusIcon = '';
+            if (status === 'FILLED') statusIcon = '✅ ';
+            else if (status === 'PENDING') statusIcon = '⏳ ';
+            else if (status === 'SKIPPED') statusIcon = '❌ ';
+            else if (status === 'WATCHING') statusIcon = '👁 ';
+            else if (status === 'QUEUED') statusIcon = '📋 ';
+
+            var ts = '';
+            if (flow.timestamp) {
+                var d = new Date(flow.timestamp);
+                ts = d.toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
+            }
+
+            var h = '<div class="flow-card status-' + statusClass + '" onclick="this.classList.toggle(\'expanded\')" data-status="' + status + '">';
+
+            // Row 1: ticker + tier + score + status
+            h += '<div class="flow-header">';
+            h += '<div class="flow-header-left">';
+            h += '<span class="flow-ticker">' + flow.ticker + '</span>';
+            h += '<span class="flow-tier-badge ' + tierClass + '">' + tierLabel + '</span>';
+            h += '<span class="flow-direction ' + dirClass + '">' + (flow.direction || 'N/A') + '</span>';
+            h += '</div>';
+            h += '<div class="flow-header-right">';
+            h += '<span class="flow-score-badge ' + scoreClass + '">' + scoreStr + '</span>';
+            h += '<span class="flow-status-badge ' + statusClass + '">' + statusIcon + status + '</span>';
+            h += '</div>';
+            h += '</div>';
+
+            // Row 2: setup + source tag
+            h += '<div class="flow-row2">';
+            h += '<span class="flow-setup">' + (flow.setup || '') + '</span>';
+            h += '<span class="flow-source">' + (flow.source || '') + '</span>';
+            h += '</div>';
+
+            // Color bar
+            h += '<div class="flow-bar ' + dirClass + '"></div>';
+
+            // Meta: premium + timestamp
+            h += '<div class="flow-meta">';
+            h += '<span>$' + formatNumber(flow.premium || 0) + ' premium</span>';
+            h += '<span>' + ts + '</span>';
+            h += '</div>';
+
+            // Skip reason (if skipped)
+            if (status === 'SKIPPED' && flow.skip_reason) {
+                h += '<div class="flow-skip-reason"><strong>Skip:</strong> ' + flow.skip_reason + '</div>';
+            }
+
+            // Expand hint
+            h += '<div class="flow-expand-hint">tap to expand analysis ▾</div>';
+
+            // ===== EXPANDED SECTION =====
+            h += '<div class="flow-analysis">';
+
+            // Factors
+            h += '<div class="flow-section-title">8-Factor Score Breakdown</div>';
+            h += '<div class="factor-grid">' + buildFactorHtml(flow.factors) + '</div>';
+
+            // Modifiers
+            if (flow.modifiers && flow.modifiers.length > 0) {
+                h += '<div class="flow-section-title">Modifiers</div>';
+                h += '<div class="flow-modifiers">' + buildModifierHtml(flow.modifiers) + '</div>';
+            }
+
+            // Chain rec
+            if (flow.chain_rec) {
+                h += buildChainRecHtml(flow.chain_rec);
+            }
+
+            // Analysis text
+            h += '<div class="flow-analysis-text">' + (flow.analysis || 'Analysis pending') + '</div>';
+
+            // Timestamp
+            if (ts) {
+                h += '<div class="flow-timestamp">' + ts + '</div>';
+            }
+
+            h += '</div>'; // end flow-analysis
+            h += '</div>'; // end flow-card
+            return h;
+        }
+
+        function setFlowFilter(filter, btn) {
+            _flowFilter = filter;
+            var btns = document.querySelectorAll('.flow-filter-btn');
+            for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+            btn.classList.add('active');
+            renderFlowCards();
+        }
+
+        function renderFlowCards() {
+            var flows = D.flow_alerts || [];
+            var filtered = flows;
+            if (_flowFilter !== 'ALL') {
+                filtered = [];
+                for (var i = 0; i < flows.length; i++) {
+                    if ((flows[i].status || '').toUpperCase() === _flowFilter) filtered.push(flows[i]);
+                }
+            }
+            // Sort: FILLED first, then PENDING, QUEUED, WATCHING, SKIPPED
+            var order = {FILLED:0, PENDING:1, QUEUED:2, WATCHING:3, SKIPPED:4};
+            filtered.sort(function(a, b) {
+                var oa = order[(a.status||'').toUpperCase()] || 9;
+                var ob = order[(b.status||'').toUpperCase()] || 9;
+                if (oa !== ob) return oa - ob;
+                return Math.abs(b.score||0) - Math.abs(a.score||0);
+            });
+            var cardsHtml = '';
+            for (var i = 0; i < filtered.length; i++) {
+                cardsHtml += buildFlowCard(filtered[i]);
+            }
+            document.getElementById('flowCards').innerHTML = cardsHtml || '<p style="color:#6677aa;text-align:center;padding:40px;">No alerts match this filter</p>';
+        }
+
+        function renderFlowTab() {
+            var flows = D.flow_alerts || [];
+            // Count by status
+            var counts = {ALL: flows.length, FILLED: 0, PENDING: 0, QUEUED: 0, WATCHING: 0, SKIPPED: 0};
+            for (var i = 0; i < flows.length; i++) {
+                var s = (flows[i].status || '').toUpperCase();
+                if (counts[s] !== undefined) counts[s]++;
+            }
+
+            var filterBar = '<div class="flow-filters">'
+                + '<button class="flow-filter-btn active" onclick="setFlowFilter(\'ALL\',this)">All <span class="flow-filter-count">' + counts.ALL + '</span></button>'
+                + '<button class="flow-filter-btn" onclick="setFlowFilter(\'FILLED\',this)">✅ Filled <span class="flow-filter-count">' + counts.FILLED + '</span></button>'
+                + '<button class="flow-filter-btn" onclick="setFlowFilter(\'PENDING\',this)">⏳ Pending <span class="flow-filter-count">' + counts.PENDING + '</span></button>'
+                + '<button class="flow-filter-btn" onclick="setFlowFilter(\'QUEUED\',this)">📋 Queued <span class="flow-filter-count">' + counts.QUEUED + '</span></button>'
+                + '<button class="flow-filter-btn" onclick="setFlowFilter(\'WATCHING\',this)">👁 Watching <span class="flow-filter-count">' + counts.WATCHING + '</span></button>'
+                + '<button class="flow-filter-btn" onclick="setFlowFilter(\'SKIPPED\',this)">❌ Skipped <span class="flow-filter-count">' + counts.SKIPPED + '</span></button>'
+                + '</div>';
+
+            document.getElementById('flowTab').innerHTML = filterBar + '<div class="grid-2col" id="flowCards"></div>';
+            _flowFilter = 'ALL';
+            renderFlowCards();
         }
 
         function renderPositionsTab() {
